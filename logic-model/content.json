@@ -1,0 +1,158 @@
+{
+  "status": "draft",
+  "statusNote": "Draft for team review. Every item below was drafted from the Build Cycle C04 README and has not yet been confirmed at the working session. Numbers in [brackets] are blanks, filled only from program records or agreed targets.",
+  "lastUpdated": "2026-11-14",
+  "owner": "[Name], product owner",
+  "feedback": {
+    "label": "Comment on the Start here issue",
+    "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1"
+  },
+
+  "hero": {
+    "title": "How The Labs creates change",
+    "summary": "Neighbors give their time, The Labs gives them tools and a method, and together they research real problems and build working responses. Over time that grows into skills people keep, volunteers who lead, and a shared platform other communities can start from.",
+    "howToRead": "Read left to right. Each column leads to the next: what we put in, what we do, what we can count, then what we intend to change within 12 months, in 1 to 3 years, and in 3 years or more. Every item names the workstream it belongs to. Choose a workstream to highlight its items."
+  },
+
+  "workstreams": [
+    { "id": "tools", "label": "Tools" },
+    { "id": "content", "label": "Content" },
+    { "id": "volunteering", "label": "Volunteering" },
+    { "id": "learning", "label": "Learning" }
+  ],
+
+  "columns": [
+    {
+      "id": "inputs",
+      "title": "Inputs",
+      "sub": "What we put in",
+      "items": [
+        { "text": "Time from volunteers: builders in residence, maintainers and contributors.", "tags": ["volunteering"] },
+        { "text": "OLOS, The Labs' open-source platform, and the region's own copy of it.", "tags": ["tools"] },
+        { "text": "Coding agents that handle clerical work so people can do the thinking.", "tags": ["tools", "learning"] },
+        { "text": "Research methods, guides and prompts, starting with frame creation.", "tags": ["content", "learning"] },
+        { "text": "Space, time and expertise from partners such as [libraries, universities and employers].", "tags": ["volunteering", "learning"] },
+        { "text": "Funding from [funders].", "tags": ["tools", "content", "volunteering", "learning"] }
+      ]
+    },
+    {
+      "id": "activities",
+      "title": "Activities",
+      "sub": "What we do",
+      "items": [
+        { "text": "Six-week Build Cycles where neighbors research a hard problem and build a response.", "tags": ["learning", "volunteering"] },
+        { "text": "Research Pods that interview people and log what they find in public.", "tags": ["content", "learning"] },
+        { "text": "Rapid prototypes put in front of real people to see what they do.", "tags": ["tools", "learning"] },
+        { "text": "Open Lab Nights where people work on projects together.", "tags": ["volunteering", "learning"] },
+        { "text": "Changes built on OLOS and offered back to the main project.", "tags": ["tools"] },
+        { "text": "Teach-backs where each project shows the room what it learned.", "tags": ["content", "learning"] }
+      ]
+    },
+    {
+      "id": "outputs",
+      "title": "Outputs",
+      "sub": "What we can count",
+      "items": [
+        { "text": "[#] Build Cycles run, each ending in changes people use.", "tags": ["learning"] },
+        { "text": "[#] interviews, case studies and records logged in public.", "tags": ["content"] },
+        { "text": "[#] prototypes each tried by at least three people.", "tags": ["tools", "learning"] },
+        { "text": "[#] contributors and builders in residence taking part.", "tags": ["volunteering"] },
+        { "text": "[#] changes offered back to the main OLOS project.", "tags": ["tools"] },
+        { "text": "[#] teach-backs and written project accounts.", "tags": ["content", "learning"] }
+      ]
+    },
+    {
+      "id": "short",
+      "title": "Short term",
+      "sub": "Within 12 months",
+      "items": [
+        { "text": "Participants can use a coding agent to research and build something real.", "tags": ["learning", "tools"] },
+        { "text": "Volunteers see where their work fits and come back for the next Cycle.", "tags": ["volunteering"] },
+        { "text": "What The Labs knows is written down where people can find it.", "tags": ["content", "tools"] },
+        { "text": "The region's OLOS runs changes that real people use.", "tags": ["tools"] },
+        { "text": "Partners know how to bring a problem, a space or an expert to a Cycle.", "tags": ["volunteering"] }
+      ]
+    },
+    {
+      "id": "medium",
+      "title": "Medium term",
+      "sub": "1 to 3 years",
+      "items": [
+        { "text": "Upskillers take new skills into jobs, studies or civic roles.", "tags": ["learning"] },
+        { "text": "Experienced volunteers lead pods and bring newcomers along.", "tags": ["volunteering", "learning"] },
+        { "text": "Other regions adopt OLOS changes made here.", "tags": ["tools"] },
+        { "text": "A growing public library of research and write-ups that others reuse.", "tags": ["content"] },
+        { "text": "Partners co-host Cycles and bring their own problems.", "tags": ["volunteering"] }
+      ]
+    },
+    {
+      "id": "long",
+      "title": "Long term",
+      "sub": "3 years or more",
+      "items": [
+        { "text": "Greater Washington residents have a lasting local place to learn to build with AI.", "tags": ["learning"] },
+        { "text": "Communities solve their own problems with tools they understand and control.", "tags": ["tools", "volunteering"] },
+        { "text": "New regions start Labs from shared tools and lessons, not from scratch.", "tags": ["tools", "content"] },
+        { "text": "A volunteer-led way of upskilling that funders and partners can back with confidence.", "tags": ["volunteering", "learning"] }
+      ]
+    }
+  ],
+
+  "indicators": {
+    "intro": "Sample measures for each outcome horizon. The team confirms which ones it already tracks and sets targets from a baseline.",
+    "horizons": [
+      {
+        "title": "Short term",
+        "sub": "Within 12 months",
+        "items": [
+          "[X]% of participants who say they can use a coding agent to build something, before and after a Cycle.",
+          "[X]% of contributors who take part in a second Cycle.",
+          "[#] changes running in the region's OLOS with at least three regular users.",
+          "[#] partners who have hosted, mentored or brought a problem."
+        ]
+      },
+      {
+        "title": "Medium term",
+        "sub": "1 to 3 years",
+        "items": [
+          "[X]% of past participants reporting a new job, course or civic role that used what they learned, at 12 months.",
+          "[#] pods led by people who started as contributors.",
+          "[#] changes from this region accepted into the main OLOS project.",
+          "[#] times research or write-ups are reused by other pods or regions."
+        ]
+      },
+      {
+        "title": "Long term",
+        "sub": "3 years or more",
+        "items": [
+          "[#] Greater Washington residents who have completed a Cycle.",
+          "[#] community problems with a working response still in use after a year.",
+          "[#] new regions running their own copy of OLOS.",
+          "Share of The Labs' budget from [#] recurring funders and partners."
+        ]
+      }
+    ]
+  },
+
+  "assumptions": {
+    "assumptions": [
+      "Neighbors will give 4 to 6 hours a week for six weeks when the work is real and the people using it are close by.",
+      "Coding agents let people without a coding background build working software.",
+      "Partners will lend space, time or expertise when they can see where it fits.",
+      "Keeping the work in public makes it easier for others to reuse."
+    ],
+    "external": [
+      "How fast AI tools change, and what they cost.",
+      "Volunteer capacity around jobs, family and the calendar.",
+      "Funding cycles and what funders are prioritizing.",
+      "Policies at partner institutions about space, data and AI use."
+    ]
+  },
+
+  "links": [
+    { "label": "Join The Labs", "url": "https://theupskillinglabs.org", "kind": "join", "confirm": "Replace with the join page URL." },
+    { "label": "Volunteer", "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1", "kind": "secondary" },
+    { "label": "Donate", "url": "https://theupskillinglabs.org", "kind": "secondary", "confirm": "Replace with the donate page URL." },
+    { "label": "Events", "url": "https://theupskillinglabs.org", "kind": "secondary", "confirm": "Replace with the events page URL." }
+  ]
+}

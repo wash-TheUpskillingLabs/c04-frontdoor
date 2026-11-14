@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logic Model</title>
+<meta name="description" content="How The Upskilling Labs creates change: inputs, activities, outputs, and short-, medium- and long-term outcomes across tools, content, volunteering and learning.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How The Labs creates change">
+<meta property="og:description" content="The Upskilling Labs logic model: from volunteer time and open tools to skills people keep and a platform other communities can start from.">
+<!-- MAINTAINER: og:image must be an absolute URL. Replace the path below with the full address once the page's domain is confirmed. -->
+<meta property="og:image" content="/logic-model/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght,SHRP@300..800,0..100&display=swap" rel="stylesheet">
+<style>
+/* Same design rules as the pod's front page (../index.html): one radius, no pills,
+   hairline rules, lists not card grids, gold is the one thing to notice, red only for "Join The Labs". */
+:root {
+  --ink:#00141b; --navy:#03232a; --forest:#005f68; --teal:#0094a0; --teal-deep:#007882;
+  --paper:#f6f4ef; --gold:#cfab67; --red:#e11d2a; --tint:#e7ecea;
+  --on-paper:#00141b; --on-paper-2:#3d4a4f; --rule:rgba(0,20,27,.14);
+  --on-dark:rgba(255,255,255,.95); --on-dark-2:rgba(255,255,255,.8); --rule-dark:rgba(255,255,255,.18);
+  --r:14px; --max:720px; --wide:1440px; --g:clamp(16px,5vw,48px);
+  --font:"Geologica",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+* { box-sizing:border-box; }
+html { background:var(--paper); }
+body { margin:0; font-family:var(--font); font-size:17px; line-height:28px; color:var(--on-paper); background:var(--paper); -webkit-font-smoothing:antialiased; font-synthesis:none; }
+a { color:var(--teal-deep); text-decoration-thickness:1px; text-underline-offset:3px; }
+a:focus-visible, button:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.wrap { max-width:var(--max); margin:0 auto; padding:0 var(--g); }
+.wide { max-width:var(--wide); margin:0 auto; padding:0 var(--g); }
+.vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.skip { position:absolute; left:16px; top:-60px; background:var(--paper); color:var(--ink); padding:10px 16px; border-radius:var(--r); z-index:10; }
+.skip:focus { top:12px; }
+
+/* Cover */
+.cover { background:var(--ink); color:var(--on-dark); padding:48px 0 56px; }
+.lockup { font-size:15px; line-height:20px; font-weight:500; color:var(--on-dark-2); margin:0 0 56px; }
+.lockup a { color:inherit; }
+.cover h1 { font-size:clamp(40px,7vw,68px); line-height:1.04; font-weight:640; letter-spacing:-.03em; font-variation-settings:"SHRP" 100; margin:0 0 24px; text-wrap:balance; max-width:16ch; }
+.cover .summary { font-size:clamp(19px,2.4vw,23px); line-height:1.45; color:var(--on-dark); margin:0 0 28px; max-width:40ch; text-wrap:pretty; }
+.cover .how { font-size:16px; line-height:26px; color:var(--on-dark-2); margin:0; max-width:60ch; padding-top:20px; border-top:1px solid var(--rule-dark); }
+.cover .how strong { color:var(--on-dark); font-weight:600; }
+
+.draft { background:var(--tint); border-bottom:1px solid var(--rule); font-size:15px; line-height:24px; padding:14px 0; }
+.draft p { margin:0; color:var(--on-paper); }
+.draft strong { font-weight:600; }
+
+h2 { font-size:26px; line-height:32px; font-weight:600; letter-spacing:-.02em; font-variation-settings:"SHRP" 60; margin:0 0 16px; text-wrap:balance; }
+h3 { font-size:19px; line-height:26px; font-weight:600; letter-spacing:-.01em; margin:0; }
+p { margin:0 0 20px; text-wrap:pretty; }
+p.quiet { color:var(--on-paper-2); }
+ul { list-style:none; margin:0; padding:0; }
+mark.blank { background:none; color:inherit; text-decoration:underline dotted; text-underline-offset:3px; text-decoration-thickness:1.5px; }
+
+main > section { padding:48px 0 16px; border-bottom:1px solid var(--rule); }
+main > section:last-of-type { border-bottom:0; }
+
+/* Filter */
+.filter { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 8px; }
+.filter-label { font-size:15px; color:var(--on-paper-2); margin-right:4px; width:100%; }
+@media (min-width:700px) { .filter-label { width:auto; } }
+.fbtn, .copy { font:inherit; font-size:16px; line-height:20px; font-weight:500; min-height:44px; padding:11px 16px; border-radius:var(--r); border:1px solid rgba(0,20,27,.28); background:transparent; color:var(--on-paper); cursor:pointer; }
+.fbtn:hover, .copy:hover { border-color:var(--ink); }
+.fbtn[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:#fff; }
+.fbtn[aria-pressed="true"]::before { content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gold); margin-right:8px; vertical-align:1px; }
+.copy { margin-left:auto; color:var(--teal-deep); border-color:transparent; text-decoration:underline; text-underline-offset:3px; }
+.status { font-size:15px; line-height:24px; color:var(--on-paper-2); min-height:24px; margin:0 0 20px; }
+
+/* The model */
+.model { display:grid; grid-template-columns:1fr; gap:16px; margin:0 0 32px; }
+@media (min-width:900px) { .model { grid-template-columns:repeat(3,1fr); } }
+@media (min-width:1280px) { .model { grid-template-columns:repeat(6,1fr); gap:12px; } }
+.col { border-radius:var(--r); padding:20px 16px 12px; }
+.col header { padding-bottom:12px; margin-bottom:4px; border-bottom:1px solid var(--rule); }
+.col .sub { display:block; font-size:15px; line-height:22px; color:var(--on-paper-2); }
+.col li { padding:12px 8px; margin:0 -8px; border-bottom:1px solid var(--rule); border-radius:8px; }
+.col li:last-child { border-bottom:0; }
+.col li p { margin:0 0 4px; font-size:16px; line-height:24px; }
+.col .tags { display:block; font-size:14px; line-height:20px; color:var(--on-paper-2); }
+.col .tags b { font-weight:600; color:var(--on-paper); }
+/* Outcomes gain visual weight from short to long term. */
+.col-inputs, .col-activities, .col-outputs { padding-left:0; padding-right:0; }
+.col-inputs li, .col-activities li, .col-outputs li { margin:0; padding-left:0; padding-right:0; }
+.col-short { background:var(--tint); }
+.col-medium { background:var(--forest); color:var(--on-dark); }
+.col-long { background:var(--ink); color:var(--on-dark); }
+.col-medium header, .col-long header, .col-medium li, .col-long li { border-color:var(--rule-dark); }
+.col-medium .sub, .col-long .sub, .col-medium .tags, .col-long .tags { color:var(--on-dark-2); }
+.col-medium .tags b, .col-long .tags b { color:#fff; }
+.col-long h3 { font-variation-settings:"SHRP" 100; }
+.col-long h3::after { content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--gold); margin-left:8px; vertical-align:3px; }
+@media (min-width:1280px) { .col-medium h3, .col-long h3 { font-size:21px; } }
+
+/* Filtered state: matches get a gold dot and a tint; the rest dim but stay readable (AA) and in place. */
+.is-filtered .col li .mark { display:none; }
+.is-filtered .col li.match { background:rgba(207,171,103,.26); }
+.is-filtered .col-medium li.match, .is-filtered .col-long li.match { background:rgba(207,171,103,.18); }
+.is-filtered .col-medium li.match .tags, .is-filtered .col-long li.match .tags { color:var(--on-dark); }
+.is-filtered .col-inputs li.match, .is-filtered .col-activities li.match, .is-filtered .col-outputs li.match { padding-left:8px; padding-right:8px; margin:0 -8px; }
+.is-filtered .col li.match .mark { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gold); margin-right:8px; vertical-align:1px; }
+.is-filtered .col li:not(.match) p { color:var(--on-paper-2); }
+.is-filtered .col-medium li:not(.match) p, .is-filtered .col-long li:not(.match) p { color:var(--on-dark-2); }
+.col li .mark { display:none; }
+
+/* Indicators and assumptions */
+.horizons { display:grid; grid-template-columns:1fr; gap:24px 40px; margin:0 0 24px; }
+@media (min-width:900px) { .horizons { grid-template-columns:repeat(3,1fr); } }
+.horizons h3 .sub { display:block; font-size:15px; line-height:22px; font-weight:400; color:var(--on-paper-2); }
+.horizons header { padding-bottom:12px; }
+.list li { padding:12px 0; border-top:1px solid var(--rule); font-size:16px; line-height:24px; }
+.list li:last-child { border-bottom:1px solid var(--rule); }
+.pair { display:grid; grid-template-columns:1fr; gap:24px 40px; margin:0 0 24px; }
+@media (min-width:900px) { .pair { grid-template-columns:1fr 1fr; } }
+.pair h3 { margin-bottom:12px; }
+
+/* Links */
+.actions { display:flex; flex-wrap:wrap; gap:12px; margin:0 0 32px; }
+.btn { display:inline-flex; align-items:center; min-height:44px; background:var(--teal-deep); color:#fff; text-decoration:none; font-weight:600; font-size:16px; line-height:24px; padding:10px 20px; border-radius:var(--r); }
+.btn:hover { background:#00686f; }
+.btn.join { background:var(--red); }
+.btn.join:hover { background:#c3141f; }
+
+footer { background:var(--navy); color:var(--on-dark-2); font-size:15px; line-height:24px; padding:32px 0 40px; margin-top:32px; }
+footer a { color:var(--on-dark); }
+footer p { color:inherit; margin:0 0 8px; }
+@media (prefers-reduced-motion: no-preference) {
+  a, .btn, .fbtn, .col li, .col li p { transition:background .15s cubic-bezier(.32,.72,0,1), color .15s cubic-bezier(.32,.72,0,1); }
+}
+
+/* Print and PDF for grant packets: light ground, outcomes keep their weight through border thickness. */
+@media print {
+  @page { size:landscape; margin:12mm; }
+  html, body { background:#fff; font-size:11pt; line-height:1.4; }
+  .skip, .filter, .status, .copy, .no-print { display:none !important; }
+  .cover { background:#fff; color:#000; padding:0 0 12pt; border-bottom:1pt solid #000; }
+  .cover h1 { font-size:26pt; margin:0 0 8pt; max-width:none; }
+  .cover .summary { font-size:12pt; color:#000; margin:0 0 8pt; max-width:none; }
+  .cover .how, .lockup { color:#333; border:0; padding:0; margin:0 0 6pt; }
+  .draft { background:#fff; border:1pt solid #000; padding:6pt; margin:8pt 0; }
+  .wrap, .wide { max-width:none; padding:0; }
+  main > section { padding:14pt 0 4pt; break-inside:auto; }
+  .model { grid-template-columns:repeat(6,1fr); gap:6pt; }
+  .col { padding:6pt; background:#fff !important; color:#000 !important; border:.5pt solid #999; break-inside:avoid; }
+  .col-short { border:1pt solid #000; }
+  .col-medium { border:2pt solid #000; }
+  .col-long { border:3pt solid #000; }
+  .col li { padding:4pt 0; margin:0; }
+  .col li p { font-size:9pt; line-height:1.3; color:#000 !important; }
+  .col .tags, .col .sub { font-size:8pt; line-height:1.2; color:#333 !important; }
+  .col .tags b { color:#000 !important; }
+  .col h3 { font-size:11pt; }
+  .col header, .col li { border-color:#bbb !important; }
+  .is-filtered .col li.match { background:#fff !important; outline:1pt solid #000; }
+  .horizons, .pair { grid-template-columns:repeat(3,1fr); }
+  .pair { grid-template-columns:1fr 1fr; }
+  .list li { font-size:9.5pt; line-height:1.35; padding:4pt 0; }
+  .horizons section, .pair section { break-inside:avoid; }
+  .btn { background:none !important; color:#000; padding:0; min-height:0; font-weight:600; }
+  .btn::after { content:"\00a0(" attr(href) ")"; font-weight:400; }
+  .cover .how strong { color:#000; }
+  footer { background:#fff; color:#000; padding:8pt 0 0; margin:0; border-top:1pt solid #000; }
+  footer a { color:#000; }
+  footer a[href^="http"]::after { content:" (" attr(href) ")"; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#model">Skip to the logic model</a>
+
+<header class="cover">
+  <div class="wrap">
+    <p class="lockup">The Upskilling Labs of Greater Washington</p>
+    <h1 id="hero-title">How The Labs creates change</h1>
+    <p class="summary" id="hero-summary"></p>
+    <p class="how" id="hero-how"></p>
+  </div>
+</header>
+
+<div class="draft" id="draft" hidden>
+  <div class="wide"><p id="draft-note"></p></div>
+</div>
+
+<main>
+  <section aria-labelledby="model-title">
+    <div class="wide">
+      <h2 id="model-title">The logic model</h2>
+      <noscript><p>This page needs JavaScript to show the model. The same content is in <a href="content.json">content.json</a>.</p></noscript>
+      <div class="filter" role="group" aria-labelledby="filter-label" id="filter">
+        <span class="filter-label" id="filter-label">Highlight a workstream:</span>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+      <div class="model" id="model" tabindex="-1"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ind-title">
+    <div class="wide">
+      <h2 id="ind-title">How we'll know</h2>
+      <p class="quiet" id="ind-intro"></p>
+      <div class="horizons" id="horizons"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ass-title">
+    <div class="wide">
+      <h2 id="ass-title">What this depends on</h2>
+      <div class="pair">
+        <section aria-labelledby="ass-a">
+          <h3 id="ass-a">Assumptions</h3>
+          <ul class="list" id="assumptions"></ul>
+        </section>
+        <section aria-labelledby="ass-e">
+          <h3 id="ass-e">External factors</h3>
+          <ul class="list" id="external"></ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="act-title">
+    <div class="wide">
+      <h2 id="act-title">Take part</h2>
+      <nav class="actions" id="actions" aria-labelledby="act-title"></nav>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wide">
+    <p id="updated"></p>
+    <p id="feedback"></p>
+    <p>The Upskilling Labs of Greater Washington. Licensed CC BY 4.0: share it, adapt it, credit us.</p>
+  </div>
+</footer>
+
+<script>
+(async function () {
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.append(...withBlanks(text)); return n; };
+  // Wrap [placeholders] in <mark class="blank"> so unfilled blanks are easy to spot. Built as nodes, never innerHTML.
+  function withBlanks(text) {
+    const out = []; const re = /\[[^\]]+\]/g; let last = 0, m;
+    while ((m = re.exec(text))) {
+      if (m.index > last) out.push(document.createTextNode(text.slice(last, m.index)));
+      const mk = document.createElement('mark'); mk.className = 'blank'; mk.textContent = m[0]; out.push(mk);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) out.push(document.createTextNode(text.slice(last)));
+    return out;
+  }
+
+  let data;
+  try {
+    const res = await fetch('content.json', { cache: 'no-cache' });
+    data = await res.json();
+  } catch (e) {
+    $('model').append(el('p', null, 'The model could not load. Try reloading the page.'));
+    return;
+  }
+
+  // Hero
+  $('hero-title').textContent = data.hero.title;
+  $('hero-summary').append(...withBlanks(data.hero.summary));
+  const how = $('hero-how'); const hs = document.createElement('strong'); hs.textContent = 'How to read it. ';
+  how.append(hs, ...withBlanks(data.hero.howToRead));
+
+  if (data.status === 'draft') {
+    $('draft').hidden = false;
+    const s = document.createElement('strong'); s.textContent = 'Not final. ';
+    $('draft-note').append(s, ...withBlanks(data.statusNote));
+  }
+
+  // Model
+  const wsLabel = Object.fromEntries(data.workstreams.map(w => [w.id, w.label]));
+  const model = $('model');
+  for (const col of data.columns) {
+    const sec = el('section', 'col col-' + col.id);
+    sec.setAttribute('aria-labelledby', 'col-' + col.id);
+    const head = el('header');
+    const h = el('h3', null, col.title); h.id = 'col-' + col.id;
+    head.append(h, el('span', 'sub', col.sub));
+    const ul = el('ul');
+    for (const item of col.items) {
+      const li = el('li'); li.dataset.tags = item.tags.join(' ');
+      const p = el('p'); const mark = el('span', 'mark'); mark.setAttribute('aria-hidden', 'true');
+      const sr = el('span', 'vh match-sr');
+      p.append(mark, sr, ...withBlanks(item.text));
+      const tags = el('span', 'tags');
+      item.tags.forEach((t, i) => { if (i) tags.append(', '); const b = el('span', null, wsLabel[t] || t); b.dataset.tag = t; tags.append(b); });
+      tags.prepend(el('span', 'vh', 'Workstreams: '));
+      li.append(p, tags); ul.append(li);
+    }
+    sec.append(head, ul); model.append(sec);
+  }
+
+  // Filter
+  const filter = $('filter');
+  const buttons = [];
+  const all = { id: '', label: 'All' };
+  for (const w of [all, ...data.workstreams]) {
+    const b = el('button', 'fbtn', w.label); b.type = 'button'; b.dataset.ws = w.id;
+    b.addEventListener('click', () => apply(w.id, true));
+    filter.append(b); buttons.push(b);
+  }
+  const copy = el('button', 'copy', 'Copy link to this view'); copy.type = 'button';
+  copy.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(location.href); $('status').textContent = 'Link copied.'; }
+    catch { $('status').textContent = 'Copy this address from your browser: ' + location.href; }
+  });
+  filter.append(copy);
+
+  function apply(ws, fromUser) {
+    if (ws && !wsLabel[ws]) ws = '';
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ws === ws)));
+    model.classList.toggle('is-filtered', !!ws);
+    let n = 0;
+    model.querySelectorAll('li').forEach(li => {
+      const hit = !!ws && li.dataset.tags.split(' ').includes(ws);
+      li.classList.toggle('match', hit);
+      li.querySelector('.match-sr').textContent = hit ? 'Highlighted. ' : '';
+      li.querySelectorAll('[data-tag]').forEach(t => {
+        const on = hit && t.dataset.tag === ws;
+        if (on && t.tagName !== 'B') { const b = el('b', null, t.textContent); b.dataset.tag = t.dataset.tag; t.replaceWith(b); }
+        if (!on && t.tagName === 'B') { const s = el('span', null, t.textContent); s.dataset.tag = t.dataset.tag; t.replaceWith(s); }
+      });
+      if (hit) n++;
+    });
+    const total = model.querySelectorAll('li').length;
+    $('status').textContent = ws ? `${wsLabel[ws]}: ${n} of ${total} items highlighted, marked with a gold dot. The rest stay in place.` : `Showing all ${total} items.`;
+    const url = new URL(location.href);
+    if (ws) url.searchParams.set('workstream', ws); else url.searchParams.delete('workstream');
+    history.replaceState(null, '', url);
+  }
+  apply(new URL(location.href).searchParams.get('workstream') || '', false);
+
+  // Indicators
+  $('ind-intro').append(...withBlanks(data.indicators.intro));
+  for (const h of data.indicators.horizons) {
+    const s = el('section'); const head = el('header'); const h3 = el('h3', null, h.title);
+    h3.append(el('span', 'sub', h.sub)); head.append(h3);
+    const ul = el('ul', 'list'); h.items.forEach(t => ul.append(el('li', null, t)));
+    s.append(head, ul); $('horizons').append(s);
+  }
+
+  // Assumptions
+  data.assumptions.assumptions.forEach(t => $('assumptions').append(el('li', null, t)));
+  data.assumptions.external.forEach(t => $('external').append(el('li', null, t)));
+
+  // Links
+  for (const l of data.links) {
+    const a = el('a', 'btn' + (l.kind === 'join' ? ' join' : ''), l.label); a.href = l.url;
+    $('actions').append(a);
+  }
+
+  // Footer
+  const d = new Date(data.lastUpdated + 'T12:00:00');
+  const t = el('time', null, d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+  t.dateTime = data.lastUpdated;
+  $('updated').append('Last updated ', t, '. Reviewed each quarter. Owner: ', ...withBlanks(data.owner), '.');
+  const fa = el('a', null, data.feedback.label); fa.href = data.feedback.url;
+  $('feedback').append('Something wrong or missing? ', fa, '.');
+})();
+</script>
+</body>
+</html>

@@ -169,16 +169,20 @@
   },
   "assumptions": {
     "assumptions": [
-      "Neighbors will give 4 to 6 hours a week for six weeks when the work is real and the people using it are close by.",
-      "Coding agents let people without a coding background build working software.",
-      "Partners will lend space, time or expertise when they can see where it fits.",
-      "Keeping the work in public makes it easier for others to reuse."
+      "Builders in residence, maintainers and learning content contributors can give enough time each Build Cycle to finish what they start.",
+      "Coding agents let volunteers without a coding background improve OLOS and other tools.",
+      "Build Cycle records and delivered learning content are complete enough to build on.",
+      "Staff and volunteers will use one shared map, glossary and repository instead of keeping their own.",
+      "Slack, Luma, email and GitHub can be kept in sync with tools The Labs can afford and maintain.",
+      "Learners will use self-service learning content when it is easy to find.",
+      "Other regions want to start from shared tools and lessons."
     ],
     "external": [
       "How fast AI tools change, and what they cost.",
       "Volunteer capacity around jobs, family and the calendar.",
       "Funding cycles and what funders are prioritizing.",
-      "Policies at partner institutions about space, data and AI use."
+      "Changes to the platforms The Labs relies on, such as GitHub, Slack and Luma.",
+      "Priorities of the national organization and the main OLOS project."
     ]
   },
   "links": [

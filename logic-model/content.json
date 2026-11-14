@@ -1,6 +1,6 @@
 {
   "status": "draft",
-  "statusNote": "Draft for team review. Every item below was drafted from the Build Cycle C04 README and has not yet been confirmed at the working session. Numbers in [brackets] are blanks, filled only from program records or agreed targets.",
+  "statusNote": "Draft for team review. Inputs, activities and long-term outcomes follow the team's direction of Nov 14. Short- and medium-term outcomes, outputs and indicators are suggestions still to be confirmed at the working session. Numbers in [brackets] are blanks, filled only from program records or agreed targets.",
   "lastUpdated": "2026-11-14",
   "owner": "[Name], product owner",
   "feedback": {
@@ -27,11 +27,15 @@
       "title": "Inputs",
       "sub": "What we put in",
       "items": [
-        { "text": "Time from volunteers: builders in residence, maintainers and contributors.", "tags": ["volunteering"] },
+        { "text": "Builders in residence, who give 4 to 6 hours a week to research and build.", "tags": ["volunteering"] },
+        { "text": "Maintainers, who keep the work going between Build Cycles.", "tags": ["volunteering"] },
+        { "text": "Learning content contributors, who create and share learning content.", "tags": ["volunteering", "content"] },
+        { "text": "Coding agents that handle clerical work so volunteers can do the thinking.", "tags": ["tools"] },
         { "text": "OLOS, The Labs' open-source platform, and the region's own copy of it.", "tags": ["tools"] },
-        { "text": "Coding agents that handle clerical work so people can do the thinking.", "tags": ["tools", "learning"] },
-        { "text": "Research methods, guides and prompts, starting with frame creation.", "tags": ["content", "learning"] },
-        { "text": "Space, time and expertise from partners such as [libraries, universities and employers].", "tags": ["volunteering", "learning"] },
+        { "text": "GitHub, where research, code and records are kept in public.", "tags": ["tools", "content"] },
+        { "text": "Communication tools: Slack, Luma and email.", "tags": ["tools", "volunteering"] },
+        { "text": "Records from past Build Cycles.", "tags": ["content"] },
+        { "text": "Learning content The Labs has already delivered.", "tags": ["content", "learning"] },
         { "text": "Funding from [funders].", "tags": ["tools", "content", "volunteering", "learning"] }
       ]
     },
@@ -39,13 +43,27 @@
       "id": "activities",
       "title": "Activities",
       "sub": "What we do",
-      "items": [
-        { "text": "Six-week Build Cycles where neighbors research a hard problem and build a response.", "tags": ["learning", "volunteering"] },
-        { "text": "Research Pods that interview people and log what they find in public.", "tags": ["content", "learning"] },
-        { "text": "Rapid prototypes put in front of real people to see what they do.", "tags": ["tools", "learning"] },
-        { "text": "Open Lab Nights where people work on projects together.", "tags": ["volunteering", "learning"] },
-        { "text": "Changes built on OLOS and offered back to the main project.", "tags": ["tools"] },
-        { "text": "Teach-backs where each project shows the room what it learned.", "tags": ["content", "learning"] }
+      "groups": [
+        {
+          "title": "Builders in residence",
+          "items": [
+            { "text": "Create an ecosystem map of The Labs.", "tags": ["content", "tools"] },
+            { "text": "Create a glossary of important terms.", "tags": ["content"] },
+            { "text": "Identify key learning content for different stages of user engagement.", "tags": ["content", "learning"] },
+            { "text": "Create an improved version of OLOS.", "tags": ["tools"] },
+            { "text": "Make a plan for syncing multiple communication channels.", "tags": ["tools"] },
+            { "text": "Make a plan for developing a standardized approach to content delivery.", "tags": ["content", "learning"] },
+            { "text": "Make a plan for developing the skillsets and training that new learning content contributors need.", "tags": ["volunteering", "content"] }
+          ]
+        },
+        {
+          "title": "Maintainers",
+          "items": [
+            { "text": "Provide resources and lessons learned to builders in residence.", "tags": ["volunteering", "content"] },
+            { "text": "Recruit new volunteers.", "tags": ["volunteering"] },
+            { "text": "Promote public events.", "tags": ["volunteering"] }
+          ]
+        }
       ]
     },
     {
@@ -66,11 +84,12 @@
       "title": "Short term",
       "sub": "Within 12 months",
       "items": [
-        { "text": "Participants can use a coding agent to research and build something real.", "tags": ["learning", "tools"] },
-        { "text": "Volunteers see where their work fits and come back for the next Cycle.", "tags": ["volunteering"] },
-        { "text": "What The Labs knows is written down where people can find it.", "tags": ["content", "tools"] },
-        { "text": "The region's OLOS runs changes that real people use.", "tags": ["tools"] },
-        { "text": "Partners know how to bring a problem, a space or an expert to a Cycle.", "tags": ["volunteering"] }
+        { "text": "Volunteers and staff share one picture of the ecosystem and use the same words for it.", "tags": ["content", "volunteering"] },
+        { "text": "The team knows which learning content serves each stage of engagement.", "tags": ["content", "learning"] },
+        { "text": "People at The Labs use the improved version of OLOS in their work.", "tags": ["tools"] },
+        { "text": "The team has agreed plans for communication channels, content delivery and contributor training.", "tags": ["tools", "content", "volunteering"] },
+        { "text": "Builders in residence start from maintainers' resources and lessons, not from scratch.", "tags": ["volunteering", "content"] },
+        { "text": "New volunteers join, and more people come to public events.", "tags": ["volunteering"] }
       ]
     },
     {
@@ -78,11 +97,12 @@
       "title": "Medium term",
       "sub": "1 to 3 years",
       "items": [
-        { "text": "Upskillers take new skills into jobs, studies or civic roles.", "tags": ["learning"] },
-        { "text": "Experienced volunteers lead pods and bring newcomers along.", "tags": ["volunteering", "learning"] },
-        { "text": "Other regions adopt OLOS changes made here.", "tags": ["tools"] },
-        { "text": "A growing public library of research and write-ups that others reuse.", "tags": ["content"] },
-        { "text": "Partners co-host Cycles and bring their own problems.", "tags": ["volunteering"] }
+        { "text": "Slack, Luma and email stay in sync, so people find the same information wherever they look.", "tags": ["tools"] },
+        { "text": "Learning content is delivered in one standard way, whoever made it.", "tags": ["content", "learning"] },
+        { "text": "Trained learning content contributors add new content on their own.", "tags": ["volunteering", "content"] },
+        { "text": "Learning content and process resources start collecting in one shared place.", "tags": ["content", "tools"] },
+        { "text": "Each Build Cycle starts from the records and lessons of the one before.", "tags": ["content", "volunteering"] },
+        { "text": "Other regions adopt OLOS changes made here.", "tags": ["tools"] }
       ]
     },
     {
@@ -90,10 +110,10 @@
       "title": "Long term",
       "sub": "3 years or more",
       "items": [
-        { "text": "Greater Washington residents have a lasting local place to learn to build with AI.", "tags": ["learning"] },
-        { "text": "Communities solve their own problems with tools they understand and control.", "tags": ["tools", "volunteering"] },
         { "text": "New regions start Labs from shared tools and lessons, not from scratch.", "tags": ["tools", "content"] },
-        { "text": "A volunteer-led way of upskilling that funders and partners can back with confidence.", "tags": ["volunteering", "learning"] }
+        { "text": "A volunteer-led way of upskilling that funders and partners can back with confidence.", "tags": ["volunteering", "learning"] },
+        { "text": "A master repository holds The Labs' learning content and process resources.", "tags": ["content", "tools"] },
+        { "text": "A self-service learning platform lets people find and use learning content on their own.", "tags": ["tools", "learning"] }
       ]
     }
   ],

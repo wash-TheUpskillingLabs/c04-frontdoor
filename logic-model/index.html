@@ -81,6 +81,9 @@ main > section:last-of-type { border-bottom:0; }
 .col .sub { display:block; font-size:15px; line-height:22px; color:var(--on-paper-2); }
 .col li { padding:12px 8px; margin:0 -8px; border-bottom:1px solid var(--rule); border-radius:8px; }
 .col li:last-child { border-bottom:0; }
+.col .group { font-size:15px; line-height:22px; font-weight:600; margin:16px 0 0; padding-bottom:8px; border-bottom:1px solid var(--rule); color:var(--on-paper-2); }
+.col header + .group { margin-top:8px; }
+@media print { .col .group { font-size:9pt; color:#000; margin-top:6pt; } }
 .col li p { margin:0 0 4px; font-size:16px; line-height:24px; }
 .col .tags { display:block; font-size:14px; line-height:20px; color:var(--on-paper-2); }
 .col .tags b { font-weight:600; color:var(--on-paper); }
@@ -285,8 +288,12 @@ footer p { color:inherit; margin:0 0 8px; }
     const head = el('header');
     const h = el('h3', null, col.title); h.id = 'col-' + col.id;
     head.append(h, el('span', 'sub', col.sub));
+    sec.append(head);
+    // A column holds either "items" or "groups" of items, each group with its own subheading.
+    for (const group of col.groups || [{ items: col.items }]) {
+    if (group.title) sec.append(el('h4', 'group', group.title));
     const ul = el('ul');
-    for (const item of col.items) {
+    for (const item of group.items) {
       const li = el('li'); li.dataset.tags = item.tags.join(' ');
       const p = el('p'); const mark = el('span', 'mark'); mark.setAttribute('aria-hidden', 'true');
       const sr = el('span', 'vh match-sr');
@@ -296,7 +303,9 @@ footer p { color:inherit; margin:0 0 8px; }
       tags.prepend(el('span', 'vh', 'Workstreams: '));
       li.append(p, tags); ul.append(li);
     }
-    sec.append(head, ul); model.append(sec);
+    sec.append(ul);
+    }
+    model.append(sec);
   }
 
   // Filter

@@ -15,7 +15,7 @@ If the page shows "The model could not load" after a change, a comma or quote is
 
 ## Rules for content (from the PRD)
 
-- Each column holds 4 to 6 items, one plain sentence each.
+- Each column holds 4 to 10 items, one plain sentence each. A long column can be split into labeled `groups`, as Activities is.
 - Each item has one or more `tags`: `tools`, `content`, `volunteering`, `learning`.
 - Inputs, activities and outputs come from program records. Outcomes come from the working session.
 - Outcomes are written as intended results, never as claims.

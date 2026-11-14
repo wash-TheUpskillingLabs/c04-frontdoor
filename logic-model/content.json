@@ -7,20 +7,29 @@
     "label": "Comment on the Start here issue",
     "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1"
   },
-
   "hero": {
     "title": "Planning How The UpSkilling Labs Will Evolve",
     "summary": "Logic model view of envisioned improvements to The UpSkilling Labs program and growth. Over time these improvements lend to shared knowledge and adaptable structures that can benefit new communities, volunteers, and learners.",
     "howToRead": "Read left to right. Each column leads to the next: what we put in, what we do, what we can count, then what we intend to change within 12 months, in 1 to 3 years, and in 3 years or more. Every item names the workstream it belongs to. Choose a workstream to highlight its items."
   },
-
   "workstreams": [
-    { "id": "tools", "label": "Tools" },
-    { "id": "content", "label": "Content" },
-    { "id": "volunteering", "label": "Volunteering" },
-    { "id": "learning", "label": "Learning" }
+    {
+      "id": "tools",
+      "label": "Tools"
+    },
+    {
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "id": "volunteering",
+      "label": "Volunteering"
+    },
+    {
+      "id": "learning",
+      "label": "Learning"
+    }
   ],
-
   "columns": [
     {
       "id": "inputs",
@@ -71,12 +80,14 @@
       "title": "Outputs",
       "sub": "What we can count",
       "items": [
-        { "text": "[#] Build Cycles run, each ending in changes people use.", "tags": ["learning"] },
-        { "text": "[#] interviews, case studies and records logged in public.", "tags": ["content"] },
-        { "text": "[#] prototypes each tried by at least three people.", "tags": ["tools", "learning"] },
-        { "text": "[#] contributors and builders in residence taking part.", "tags": ["volunteering"] },
-        { "text": "[#] changes offered back to the main OLOS project.", "tags": ["tools"] },
-        { "text": "[#] teach-backs and written project accounts.", "tags": ["content", "learning"] }
+        { "text": "An ecosystem map of The Labs, published on GitHub.", "tags": ["content", "tools"] },
+        { "text": "A glossary of [#] important terms.", "tags": ["content"] },
+        { "text": "A list of key learning content for each stage of user engagement.", "tags": ["content", "learning"] },
+        { "text": "An improved version of OLOS, released to [#] users.", "tags": ["tools"] },
+        { "text": "Three written plans: syncing communication channels, standardizing content delivery, and training new learning content contributors.", "tags": ["tools", "content", "volunteering"] },
+        { "text": "[#] resources and lessons learned handed to builders in residence.", "tags": ["volunteering", "content"] },
+        { "text": "[#] new volunteers recruited.", "tags": ["volunteering"] },
+        { "text": "[#] public events promoted, with [#] people attending.", "tags": ["volunteering"] }
       ]
     },
     {
@@ -117,7 +128,6 @@
       ]
     }
   ],
-
   "indicators": {
     "intro": "Sample measures for each outcome horizon. The team confirms which ones it already tracks and sets targets from a baseline.",
     "horizons": [
@@ -125,35 +135,38 @@
         "title": "Short term",
         "sub": "Within 12 months",
         "items": [
-          "[X]% of participants who say they can use a coding agent to build something, before and after a Cycle.",
-          "[X]% of contributors who take part in a second Cycle.",
-          "[#] changes running in the region's OLOS with at least three regular users.",
-          "[#] partners who have hosted, mentored or brought a problem."
+          "[X]% of volunteers and staff who say the ecosystem map and glossary match how they see The Labs.",
+          "Key learning content named for [#] of [#] stages of engagement.",
+          "[#] people using the improved OLOS each month.",
+          "Plans for channels, content delivery and contributor training approved by [date].",
+          "[X]% of builders in residence who say maintainers' resources saved them time.",
+          "[#] new volunteers and [#] public event attendees, against [#] the year before."
         ]
       },
       {
         "title": "Medium term",
         "sub": "1 to 3 years",
         "items": [
-          "[X]% of past participants reporting a new job, course or civic role that used what they learned, at 12 months.",
-          "[#] pods led by people who started as contributors.",
-          "[#] changes from this region accepted into the main OLOS project.",
-          "[#] times research or write-ups are reused by other pods or regions."
+          "[X]% of announcements that reach Slack, Luma and email at the same time.",
+          "[X]% of learning content delivered using the standard approach.",
+          "[#] trained learning content contributors, and [#] pieces of content they added.",
+          "[X]% of learning content and process resources kept in the shared place.",
+          "[X]% of Build Cycles that start from the previous Cycle's records.",
+          "[#] OLOS changes from this region adopted by other regions."
         ]
       },
       {
         "title": "Long term",
         "sub": "3 years or more",
         "items": [
-          "[#] Greater Washington residents who have completed a Cycle.",
-          "[#] community problems with a working response still in use after a year.",
-          "[#] new regions running their own copy of OLOS.",
+          "[X]% of The Labs' learning content and process resources held in the master repository.",
+          "[#] people a month using the self-service learning platform without staff help.",
+          "[#] new regions starting from shared tools and lessons.",
           "Share of The Labs' budget from [#] recurring funders and partners."
         ]
       }
     ]
   },
-
   "assumptions": {
     "assumptions": [
       "Neighbors will give 4 to 6 hours a week for six weeks when the work is real and the people using it are close by.",
@@ -168,11 +181,29 @@
       "Policies at partner institutions about space, data and AI use."
     ]
   },
-
   "links": [
-    { "label": "Join The Labs", "url": "https://theupskillinglabs.org", "kind": "join", "confirm": "Replace with the join page URL." },
-    { "label": "Volunteer", "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1", "kind": "secondary" },
-    { "label": "Donate", "url": "https://theupskillinglabs.org", "kind": "secondary", "confirm": "Replace with the donate page URL." },
-    { "label": "Events", "url": "https://theupskillinglabs.org", "kind": "secondary", "confirm": "Replace with the events page URL." }
+    {
+      "label": "Join The Labs",
+      "url": "https://theupskillinglabs.org",
+      "kind": "join",
+      "confirm": "Replace with the join page URL."
+    },
+    {
+      "label": "Volunteer",
+      "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1",
+      "kind": "secondary"
+    },
+    {
+      "label": "Donate",
+      "url": "https://theupskillinglabs.org",
+      "kind": "secondary",
+      "confirm": "Replace with the donate page URL."
+    },
+    {
+      "label": "Events",
+      "url": "https://theupskillinglabs.org",
+      "kind": "secondary",
+      "confirm": "Replace with the events page URL."
+    }
   ]
 }

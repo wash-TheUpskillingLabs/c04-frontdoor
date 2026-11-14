@@ -73,7 +73,7 @@ Priority uses MoSCoW: Must (launch blocker), Should (expected at launch), Could 
 
 Every statement on the page must be one the organization can support. The concept draft contains placeholders and sample indicators that the team has to confirm or replace before launch.
 
-- **Structure:** each logic model column holds 4 to 6 items, each one sentence, in plain language with no jargon.
+- **Structure:** each logic model column holds 4 to 10 items, each one sentence, in plain language with no jargon.
 - **Time horizons:** short term is within 12 months, medium term is 1 to 3 years, long term is 3 or more years. [Confirm these ranges.]
 - **Sourcing:** inputs, activities and outputs come from current program records. Outcomes come from the theory of change workshop below. Anything not yet true is written as an intended result, never a claim.
 - **Numbers:** all figures such as [#] participants or [X]% targets are filled in only from real data or agreed targets. No invented statistics.
@@ -139,7 +139,7 @@ Launch is the milestone that matters most; the three gates before it keep unsupp
 |---|---|---|
 | Outcomes read as promises the Labs can't yet evidence | Medium | Word long-term outcomes as intended results; tie each to an indicator |
 | Content goes stale as programs change | High | Quarterly review with a named owner and a visible last-updated date |
-| Too many items make the model hard to scan | Medium | Cap each column at 6 items; move detail to linked pages |
+| Too many items make the model hard to scan | Medium | Cap each column at 10 items, grouped by role where it helps; move detail to linked pages |
 | Team disagrees on outcomes or time horizons | Medium | Run the working session before copy is final |
 | Volunteer capacity limits who can maintain the page | Medium | Keep content in one simple file with written update steps |
 

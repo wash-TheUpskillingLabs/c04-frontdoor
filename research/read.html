@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Door Research</title>
+<meta name="description" content="A research write-up from Front Door, a Research Pod in Build Cycle C04, The Upskilling Labs of Greater Washington.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght,SHRP@300..800,0..100&display=swap" rel="stylesheet">
+<style>
+/* Follows The Labs' design rules in /index.html.
+   Renders one Markdown file from research/, named in ?doc=, so the .md stays the one source.
+   Example: /research/read/?doc=participant-scope/participants-scoping.md */
+:root {
+  --ink:#00141b; --navy:#03232a; --forest:#005f68; --teal:#0094a0; --teal-deep:#007882;
+  --paper:#f6f4ef; --gold:#cfab67;
+  --on-paper:#00141b; --on-paper-2:#3d4a4f; --rule:rgba(0,20,27,.14); --tint:rgba(0,95,104,.06); --box:#fff;
+  --on-dark:rgba(255,255,255,.95); --on-dark-2:rgba(255,255,255,.64);
+  --r:14px; --max:960px; --g:clamp(16px,5vw,48px);
+  --font:"Geologica",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+* { box-sizing:border-box; }
+html { background:var(--paper); }
+body { margin:0; font-family:var(--font); font-size:17px; line-height:28px; color:var(--on-paper); background:var(--paper); -webkit-font-smoothing:antialiased; font-synthesis:none; }
+a { color:var(--teal-deep); text-decoration-thickness:1px; text-underline-offset:3px; overflow-wrap:anywhere; }
+a:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.wrap { max-width:var(--max); margin:0 auto; padding:0 var(--g); }
+
+.cover { background:var(--ink); color:var(--on-dark); padding:40px 0 48px; }
+.lockup { font-size:15px; line-height:20px; font-weight:500; color:var(--on-dark-2); margin:0 0 40px; }
+.lockup a { color:var(--on-dark); }
+.cover h1 { font-size:clamp(32px,6vw,52px); line-height:1.05; font-weight:640; letter-spacing:-.03em; font-variation-settings:"SHRP" 100; margin:0 0 16px; text-wrap:balance; max-width:24ch; overflow-wrap:anywhere; }
+.cover h1 code { font-family:inherit; }
+.cover .source { margin:0; color:var(--on-dark-2); font-size:15px; line-height:24px; }
+
+main.wrap { padding-top:40px; padding-bottom:8px; }
+#doc > h1:first-child { display:none; } /* the cover carries the title */
+#doc h1, #doc h2 { font-size:26px; line-height:32px; font-weight:600; letter-spacing:-.02em; font-variation-settings:"SHRP" 60; margin:48px 0 16px; padding-top:32px; border-top:1px solid var(--rule); text-wrap:balance; scroll-margin-top:16px; }
+#doc h3 { font-size:20px; line-height:28px; font-weight:600; margin:32px 0 12px; scroll-margin-top:16px; }
+#doc h4 { font-size:17px; line-height:28px; font-weight:600; margin:24px 0 8px; scroll-margin-top:16px; }
+#doc > :first-child, #doc > h1:first-child + * { margin-top:0; padding-top:0; border-top:0; }
+#doc p, #doc li { text-wrap:pretty; max-width:72ch; }
+#doc p { margin:0 0 20px; }
+#doc ul, #doc ol { margin:0 0 20px; padding-left:24px; }
+#doc li { margin:4px 0; }
+#doc hr { display:none; } /* headings already carry rules */
+#doc blockquote { margin:0 0 20px; padding:4px 0 4px 20px; border-left:2px solid var(--rule); color:var(--on-paper-2); }
+#doc code { font-family:var(--mono); font-size:.86em; background:var(--tint); padding:1px 5px; border-radius:4px; overflow-wrap:anywhere; }
+#doc pre { background:var(--box); border:1px solid var(--rule); border-radius:var(--r); padding:16px 20px; overflow-x:auto; margin:0 0 24px; font-size:14px; line-height:22px; }
+#doc pre code { background:none; padding:0; font-size:inherit; }
+#doc strong { font-weight:600; }
+#doc img { max-width:100%; height:auto; border-radius:var(--r); }
+.table-scroll { overflow-x:auto; margin:0 0 24px; border:1px solid var(--rule); border-radius:var(--r); background:var(--box); }
+#doc table { border-collapse:collapse; width:100%; font-size:15px; line-height:22px; }
+#doc th, #doc td { text-align:left; vertical-align:top; padding:10px 14px; border-bottom:1px solid var(--rule); }
+#doc th { font-weight:600; background:var(--tint); }
+#doc tr:last-child td { border-bottom:0; }
+#doc td code { white-space:nowrap; }
+.notice { padding:16px 20px; border:1px solid var(--rule); border-radius:var(--r); color:var(--on-paper-2); }
+
+footer { background:var(--navy); color:var(--on-dark-2); font-size:15px; line-height:24px; padding:32px 0 40px; margin-top:56px; }
+footer a { color:var(--on-dark); }
+footer p { color:inherit; margin:0 0 8px; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper:#03232a; --on-paper:rgba(255,255,255,.93); --on-paper-2:rgba(255,255,255,.64); --rule:rgba(255,255,255,.16); --tint:rgba(0,148,160,.14); --teal-deep:#5cc4cc; --box:#00141b; }
+  :root:not([data-theme="light"]) footer { background:#00141b; }
+}
+:root[data-theme="dark"] { --paper:#03232a; --on-paper:rgba(255,255,255,.93); --on-paper-2:rgba(255,255,255,.64); --rule:rgba(255,255,255,.16); --tint:rgba(0,148,160,.14); --teal-deep:#5cc4cc; --box:#00141b; }
+:root[data-theme="dark"] footer { background:#00141b; }
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="wrap">
+    <p class="lockup"><a href="/">Front Door</a>, <a href="/research/">Research</a></p>
+    <h1 id="title">Research</h1>
+    <p class="source" id="source"></p>
+  </div>
+</header>
+
+<main class="wrap">
+  <article id="doc"><p class="notice">Loading…</p></article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p id="repo-link">Everything we find is in <a href="https://github.com/wash-TheUpskillingLabs/c04-frontdoor">the pod's repo</a>.</p>
+    <p>A Research Pod of <a href="https://github.com/wash-TheUpskillingLabs/c04">Build Cycle C04</a>, The Upskilling Labs of Greater Washington.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script>
+(function () {
+  var REPO = 'https://github.com/wash-TheUpskillingLabs/c04-frontdoor/blob/main/research/';
+  var doc = document.getElementById('doc');
+  var name = new URLSearchParams(location.search).get('doc') || '';
+
+  // Only Markdown files inside research/: no leading slash, no "..", no other hosts.
+  if (!/^[\w\- .\/]+\.md$/.test(name) || name.indexOf('..') !== -1 || name.charAt(0) === '/') {
+    doc.innerHTML = '<p class="notice">No research file named. Go back to <a href="/research/">Research</a>.</p>';
+    return;
+  }
+
+  var path = name.split('/').map(encodeURIComponent).join('/');
+  var mdUrl = new URL('/research/' + path, location.href);
+  var ghUrl = REPO + path;
+  document.getElementById('source').innerHTML =
+    'From <a href="' + ghUrl + '" style="color:inherit">research/' + name.replace(/</g, '&lt;') + '</a>';
+  document.getElementById('repo-link').innerHTML =
+    'The source of this page is <a href="' + ghUrl + '">research/' + name.replace(/</g, '&lt;') + '</a> in the pod\'s repo. Comment there.';
+
+  // GitHub-style heading ids, so in-page links in the Markdown work here too.
+  function slug(text) {
+    return text.trim().toLowerCase().replace(/[^\w\- ]+/g, '').replace(/ /g, '-');
+  }
+
+  fetch(mdUrl)
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (md) {
+      doc.innerHTML = DOMPurify.sanitize(marked.parse(md, { gfm: true }));
+
+      var h1 = doc.querySelector('h1');
+      if (h1) {
+        document.getElementById('title').innerHTML = h1.innerHTML;
+        document.title = h1.textContent.trim() + ', Front Door Research';
+      }
+
+      var seen = {};
+      doc.querySelectorAll('h1, h2, h3, h4').forEach(function (h) {
+        var id = slug(h.textContent);
+        if (seen[id] !== undefined) { seen[id] += 1; id += '-' + seen[id]; } else { seen[id] = 0; }
+        h.id = id;
+      });
+
+      doc.querySelectorAll('thead').forEach(function (th) {
+        if (!th.textContent.trim()) th.remove();
+      });
+
+      doc.querySelectorAll('table').forEach(function (t) {
+        var box = document.createElement('div');
+        box.className = 'table-scroll';
+        t.parentNode.insertBefore(box, t);
+        box.appendChild(t);
+      });
+
+      // Resolve relative links and images against the Markdown file's location.
+      doc.querySelectorAll('a[href]').forEach(function (a) {
+        var href = a.getAttribute('href');
+        if (/^(#|[a-z]+:)/i.test(href)) return;
+        a.href = new URL(href, mdUrl).href;
+      });
+      doc.querySelectorAll('img[src]').forEach(function (img) {
+        var src = img.getAttribute('src');
+        if (!/^[a-z]+:/i.test(src)) img.src = new URL(src, mdUrl).href;
+      });
+
+      if (location.hash) {
+        var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (target) target.scrollIntoView();
+      }
+    })
+    .catch(function () {
+      doc.innerHTML = '<p class="notice">This file did not load. Read it on GitHub: <a href="' + ghUrl + '">research/' +
+        name.replace(/</g, '&lt;') + '</a>.</p>';
+    });
+})();
+</script>
+</body>
+</html>

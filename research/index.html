@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Door Research</title>
+<meta name="description" content="What Front Door has found so far: the OLOS participant data, schema, roles and background notes, grouped by folder in the pod's repo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght,SHRP@300..800,0..100&display=swap" rel="stylesheet">
+<style>
+/* Follows The Labs' design rules in /index.html.
+   One section per folder in research/, newest first within each.
+   To add an item: put the file in its folder, then add one <li> to that folder's list.
+   Markdown files link to /research/read/?doc=<folder>/<file>.md, which renders them. */
+:root {
+  --ink:#00141b; --navy:#03232a; --forest:#005f68; --teal:#0094a0; --teal-deep:#007882;
+  --paper:#f6f4ef; --gold:#cfab67;
+  --on-paper:#00141b; --on-paper-2:#3d4a4f; --rule:rgba(0,20,27,.14);
+  --on-dark:rgba(255,255,255,.95); --on-dark-2:rgba(255,255,255,.64);
+  --r:14px; --max:720px; --g:clamp(16px,5vw,48px);
+  --font:"Geologica",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+* { box-sizing:border-box; }
+html { background:var(--paper); }
+body { margin:0; font-family:var(--font); font-size:17px; line-height:28px; color:var(--on-paper); background:var(--paper); -webkit-font-smoothing:antialiased; font-synthesis:none; }
+a { color:var(--teal-deep); text-decoration-thickness:1px; text-underline-offset:3px; }
+a:focus-visible { outline:2px solid var(--teal); outline-offset:3px; }
+.wrap { max-width:var(--max); margin:0 auto; padding:0 var(--g); }
+
+.cover { background:var(--ink); color:var(--on-dark); padding:40px 0 48px; }
+.lockup { font-size:15px; line-height:20px; font-weight:500; color:var(--on-dark-2); margin:0 0 40px; }
+.lockup a { color:var(--on-dark); }
+.cover h1 { font-size:clamp(40px,8vw,64px); line-height:1.02; font-weight:640; letter-spacing:-.03em; font-variation-settings:"SHRP" 100; margin:0 0 20px; }
+.cover .q { font-size:clamp(19px,2.6vw,22px); line-height:1.4; margin:0; max-width:36ch; text-wrap:pretty; }
+
+main section { padding:40px 0 8px; border-bottom:1px solid var(--rule); }
+main section:last-of-type { border-bottom:0; }
+h2 { font-size:26px; line-height:32px; font-weight:600; letter-spacing:-.02em; font-variation-settings:"SHRP" 60; margin:0 0 8px; text-wrap:balance; }
+.folder { font-family:var(--mono); font-size:13px; line-height:20px; color:var(--on-paper-2); margin:0 0 12px; }
+p { margin:0 0 20px; text-wrap:pretty; }
+p.quiet { color:var(--on-paper-2); }
+ul { list-style:none; margin:0 0 20px; padding:0; }
+ul li { padding:12px 0; border-top:1px solid var(--rule); }
+ul li:last-child { border-bottom:1px solid var(--rule); }
+li .meta { display:block; color:var(--on-paper-2); font-size:15px; line-height:24px; }
+li .kind { color:var(--on-paper-2); font-size:15px; }
+
+footer { background:var(--navy); color:var(--on-dark-2); font-size:15px; line-height:24px; padding:32px 0 40px; margin-top:56px; }
+footer a { color:var(--on-dark); }
+footer p { color:inherit; margin:0 0 8px; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper:#03232a; --on-paper:rgba(255,255,255,.93); --on-paper-2:rgba(255,255,255,.64); --rule:rgba(255,255,255,.16); --teal-deep:#5cc4cc; }
+  :root:not([data-theme="light"]) footer { background:#00141b; }
+}
+:root[data-theme="dark"] { --paper:#03232a; --on-paper:rgba(255,255,255,.93); --on-paper-2:rgba(255,255,255,.64); --rule:rgba(255,255,255,.16); --teal-deep:#5cc4cc; }
+:root[data-theme="dark"] footer { background:#00141b; }
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="wrap">
+    <p class="lockup"><a href="/">Front Door</a></p>
+    <h1>Research</h1>
+    <p class="q">What we've found so far about OLOS and the people who use it, grouped the way it's filed in the pod's repo.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>Participant scope</h2>
+    <p class="folder">research/participant-scope/</p>
+    <p class="quiet">The OLOS <code>participants</code> table, one column at a time: what each column holds, and where it should live once there are National and Regional instances.</p>
+    <ul>
+      <li><a href="/research/read/?doc=participant-scope/participants-data-dictionary.md">Participants data dictionary</a> <span class="kind">Write-up</span><span class="meta">What each column holds, from the c04-olos source code at commit ca543cc. Where the code doesn't settle a column, it says so and lists what to ask. Nov 19.</span></li>
+      <li><a href="/research/participant-scope/">Participants column scoping</a> <span class="kind">Interactive page</span><span class="meta">Decide for each column whether it belongs at National, Regional, Both, a new table, or Unsure, then download the result as a note. Nov 18.</span></li>
+      <li><a href="/research/read/?doc=participant-scope/participants-scoping.md">Participants column scoping: the record</a> <span class="kind">Write-up</span><span class="meta">The decisions so far, one row per column. Changed by downloading a note from the scoping page and committing it over this file. Nov 18.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>OLOS schema</h2>
+    <p class="folder">research/olos-schema/</p>
+    <p class="quiet">The OLOS database: 80 tables and 795 columns, and which of them the code actually uses.</p>
+    <ul>
+      <li><a href="/research/read/?doc=olos-schema/olos-table-usage.md">OLOS table and column usage</a> <span class="kind">Write-up</span><span class="meta">Where each table and column is written and read in the code, at commit ca543cc. Nov 19.</span></li>
+      <li><a href="/research/olos-schema/olos-column-usage.csv">Column usage data</a> <span class="kind">CSV download</span><span class="meta">One row per column, 795 rows: the files and database functions that write or read it. The data behind the usage write-up. Nov 19.</span></li>
+      <li><a href="/research/olos-schema/">OLOS schema diagrams</a> <span class="kind">7 diagrams</span><span class="meta">Every table, column and key, built by replaying all 113 migrations at commit 63dc2df, split into seven areas: people and cycles, access, pipeline, practice, content, ambassadors, field surveys. Nov 13.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>OLOS roles</h2>
+    <p class="folder">research/olos-roles/</p>
+    <ul>
+      <li><a href="/research/olos-roles/olos-roles/">OLOS roles and where they are enforced</a> <span class="kind">Diagram</span><span class="meta">The stored roles, flags and member intents, where each is kept, how it's checked, and who can grant it. Nov 13.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Background</h2>
+    <p class="folder">research/Background/</p>
+    <p class="quiet">Earlier notes and diagrams that set the scene.</p>
+    <ul>
+      <li><a href="/research/Background/OLOS%20Learning%20and%20Library/">How learning works in OLOS</a> <span class="kind">Diagram</span><span class="meta">Nov 18.</span></li>
+      <li><a href="/research/Background/olos-section-links/">OLOS schema: how the sections connect</a> <span class="kind">Diagram</span><span class="meta">How the seven areas of the schema link to each other. Nov 17.</span></li>
+      <li><a href="/research/Background/OLOS%20Notes%20-%20Highlevel%20Capture%20-%2020261113.png">OLOS notes: high-level capture</a> <span class="kind">Image</span><span class="meta">Notes from Nov 13. Added Nov 16.</span></li>
+      <li><a href="/research/Background/Upskilling_Labs_dimensions_mindmap_rough-draft.pdf">Upskilling Labs dimensions mind map</a> <span class="kind">PDF, rough draft</span><span class="meta">Nov 14.</span></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Everything here is in <a href="https://github.com/wash-TheUpskillingLabs/c04-frontdoor/tree/main/research">research/ in the pod's repo</a>. Comment there, or add your own.</p>
+    <p>A Research Pod of <a href="https://github.com/wash-TheUpskillingLabs/c04">Build Cycle C04</a>, The Upskilling Labs of Greater Washington.</p>
+  </div>
+</footer>
+</body>
+</html>

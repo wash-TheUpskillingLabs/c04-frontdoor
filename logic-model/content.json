@@ -1,8 +1,8 @@
 {
   "status": "draft",
-  "statusNote": "Draft for team review. Inputs, activities and long-term outcomes follow the team's direction of Nov 14. Short- and medium-term outcomes, outputs and indicators are suggestions still to be confirmed at the working session. Numbers in [brackets] are blanks, filled only from program records or agreed targets.",
-  "lastUpdated": "2026-11-14",
-  "owner": "[Name], product owner",
+  "statusNote": "Draft for team review. Inputs, activities and long-term outcomes stem from discussion and work of c04 build cycle participants. Short- and medium-term outcomes, outputs and indicators will evolve as work progresses.",
+  "lastUpdated": "2026-11-22",
+  "owner": "Julie Schuck, product owner",
   "feedback": {
     "label": "Comment on the Start here issue",
     "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1"
@@ -45,7 +45,7 @@
         { "text": "Communication tools: Slack, Luma and email.", "tags": ["tools", "volunteering"] },
         { "text": "Records from past Build Cycles.", "tags": ["content"] },
         { "text": "Learning content The Labs has already delivered.", "tags": ["content", "learning"] },
-        { "text": "Funding from [funders].", "tags": ["tools", "content", "volunteering", "learning"] }
+        { "text": "Funding and other contributed resources.", "tags": ["tools", "content", "volunteering", "learning"] }
       ]
     },
     {
@@ -81,13 +81,14 @@
       "sub": "What we can count",
       "items": [
         { "text": "An ecosystem map of The Labs, published on GitHub.", "tags": ["content", "tools"] },
-        { "text": "A glossary of [#] important terms.", "tags": ["content"] },
-        { "text": "A list of key learning content for each stage of user engagement.", "tags": ["content", "learning"] },
-        { "text": "An improved version of OLOS, released to [#] users.", "tags": ["tools"] },
-        { "text": "Three written plans: syncing communication channels, standardizing content delivery, and training new learning content contributors.", "tags": ["tools", "content", "volunteering"] },
-        { "text": "[#] resources and lessons learned handed to builders in residence.", "tags": ["volunteering", "content"] },
-        { "text": "[#] new volunteers recruited.", "tags": ["volunteering"] },
-        { "text": "[#] public events promoted, with [#] people attending.", "tags": ["volunteering"] }
+        { "text": "A transferable glossary of key terms.", "tags": ["content"] },
+        { "text": "A list of key learning content for each stage of participant engagement.", "tags": ["content", "learning"] },
+        { "text": "An improved version of OLOS introduced to active participants.", "tags": ["tools"] },
+        { "text": "A written plan for syncing communication channels.", "tags": ["tools", "content", "volunteering"] },
+        { "text": "A written plan for standardizing content delivery and training new learning content contributors.", "tags": ["tools", "content", "volunteering"] },
+        { "text": "A summary of lessons learned and feedback from first year build cycles.", "tags": ["volunteering", "content"] },
+        { "text": "An assessment of active volunteers and efforts to recruit and engage new volunteers.", "tags": ["volunteering"] },
+        { "text": "A cycle of public events promoted and held, with similiar or increased attendance as first year.", "tags": ["volunteering"] }
       ]
     },
     {
@@ -95,12 +96,11 @@
       "title": "Short term",
       "sub": "Within 12 months",
       "items": [
-        { "text": "Volunteers and staff share one picture of the ecosystem and use the same words for it.", "tags": ["content", "volunteering"] },
-        { "text": "The team knows which learning content serves each stage of engagement.", "tags": ["content", "learning"] },
-        { "text": "People at The Labs use the improved version of OLOS in their work.", "tags": ["tools"] },
+        { "text": "Maintainers share one picture of the ecosystem and use the same words for it.", "tags": ["content", "volunteering"] },
+        { "text": "Participants know which learning content serves each stage of engagement.", "tags": ["content", "learning"] },
+        { "text": "Builders and Learners work with improved version of OLOS. Participant use, engagement, and data collected for analyses are evaluated against goals", "tags": ["tools"] },
         { "text": "The team has agreed plans for communication channels, content delivery and contributor training.", "tags": ["tools", "content", "volunteering"] },
-        { "text": "Builders in residence start from maintainers' resources and lessons, not from scratch.", "tags": ["volunteering", "content"] },
-        { "text": "New volunteers join, and more people come to public events.", "tags": ["volunteering"] }
+        { "text": "New volunteers join, and public events have suitable attendance.", "tags": ["volunteering"] }
       ]
     },
     {
@@ -109,11 +109,10 @@
       "sub": "1 to 3 years",
       "items": [
         { "text": "Slack, Luma and email stay in sync, so people find the same information wherever they look.", "tags": ["tools"] },
-        { "text": "Learning content is delivered in one standard way, whoever made it.", "tags": ["content", "learning"] },
-        { "text": "Trained learning content contributors add new content on their own.", "tags": ["volunteering", "content"] },
-        { "text": "Learning content and process resources start collecting in one shared place.", "tags": ["content", "tools"] },
-        { "text": "Each Build Cycle starts from the records and lessons of the one before.", "tags": ["content", "volunteering"] },
-        { "text": "Other regions adopt OLOS changes made here.", "tags": ["tools"] }
+        { "text": "Learning content contributors follow a standard approach, making use of instructional training as relevant.", "tags": ["content", "learning"] },
+        { "text": "Development of a single repository to hold and share learning content and process resources.", "tags": ["content", "tools"] },
+        { "text": "Regional groups and new Build Cycles make use of resources and are able to contribute data and feedback for continued learning and improvement.", "tags": ["content", "volunteering"] },
+        { "text": "Regional component of improved OLOS is transferable to new regions as they onboard.", "tags": ["tools"] }
       ]
     },
     {
@@ -121,46 +120,46 @@
       "title": "Long term",
       "sub": "3 years or more",
       "items": [
-        { "text": "New regions start Labs from shared tools and lessons, not from scratch.", "tags": ["tools", "content"] },
-        { "text": "A volunteer-led way of upskilling that funders and partners can back with confidence.", "tags": ["volunteering", "learning"] },
-        { "text": "A master repository holds The Labs' learning content and process resources.", "tags": ["content", "tools"] },
+        { "text": "New regions start own Upskilling Labs from shared tools and learning content.", "tags": ["tools", "content"] },
+        { "text": "A primarily volunteer-led way of upskilling that funders and partners can back with confidence.", "tags": ["volunteering", "learning"] },
+        { "text": "A master repository holds The Upskilling Labs' learning content and process resources.", "tags": ["content", "tools"] },
         { "text": "A self-service learning platform lets people find and use learning content on their own.", "tags": ["tools", "learning"] }
       ]
     }
   ],
   "indicators": {
-    "intro": "Sample measures for each outcome horizon. The team confirms which ones it already tracks and sets targets from a baseline.",
+    "intro": "Sample measures for each outcome horizon. These will change as the c04 team refines goals, objectives, and targets and confirms currently tracked information and baselines.",
     "horizons": [
       {
         "title": "Short term",
         "sub": "Within 12 months",
         "items": [
-          "[X]% of volunteers and staff who say the ecosystem map and glossary match how they see The Labs.",
-          "Key learning content named for [#] of [#] stages of engagement.",
-          "[#] people using the improved OLOS each month.",
-          "Plans for channels, content delivery and contributor training approved by [date].",
-          "[X]% of builders in residence who say maintainers' resources saved them time.",
-          "[#] new volunteers and [#] public event attendees, against [#] the year before."
+          "Maintainers agree the ecosystem map and glossary match how they see The Upskilling Labs.",
+          "Stages of engagement and respective learning content identified.",
+          "Improved OLOS is operational and active participants are testing.",
+          "Plans for efficient and effective communication put into action.",
+          "Plans for content delivery and contributor training approved and put into action mid-2027.",
+          "Targets for new maintainers, new participants (builders and learners), and public event attendees are established."
         ]
       },
       {
         "title": "Medium term",
         "sub": "1 to 3 years",
         "items": [
-          "[X]% of announcements that reach Slack, Luma and email at the same time.",
-          "[X]% of learning content delivered using the standard approach.",
-          "[#] trained learning content contributors, and [#] pieces of content they added.",
-          "[X]% of learning content and process resources kept in the shared place.",
-          "[X]% of Build Cycles that start from the previous Cycle's records.",
-          "[#] OLOS changes from this region adopted by other regions."
+          "Actively monitoring effectiveness of different communication channels, making adjustments as necessary.",
+          "Evaluated the standard approach to learning content, training for contributors, and new content created.",
+          "Actively monitoring participation and event attendance.",
+          "As new regions onboard, a regional OLOS is easily transferred with connection to shared resources.",
+          "Actively monitoring use of OLOS and participant feedback.",
+          "Any updates to OLOS are seamlessly pushed out to regional groups."
         ]
       },
       {
         "title": "Long term",
         "sub": "3 years or more",
         "items": [
-          "[X]% of The Labs' learning content and process resources held in the master repository.",
-          "[#] people a month using the self-service learning platform without staff help.",
+          "Learning content and process resources held in the master repository stay current and evolve as needed.",
+          "[#] people a month using the self-service learning platform.",
           "[#] new regions starting from shared tools and lessons.",
           "Share of The Labs' budget from [#] recurring funders and partners."
         ]
@@ -170,10 +169,9 @@
   "assumptions": {
     "assumptions": [
       "Builders in residence, maintainers and learning content contributors can give enough time each Build Cycle to finish what they start.",
-      "Coding agents let volunteers without a coding background improve OLOS and other tools.",
       "Build Cycle records and delivered learning content are complete enough to build on.",
       "Staff and volunteers will use one shared map, glossary and repository instead of keeping their own.",
-      "Slack, Luma, email and GitHub can be kept in sync with tools The Labs can afford and maintain.",
+      "Slack, Luma, email and GitHub can be kept in sync with tools The Upskilling Labs can afford and maintain.",
       "Learners will use self-service learning content when it is easy to find.",
       "Other regions want to start from shared tools and lessons."
     ],
@@ -181,8 +179,8 @@
       "How fast AI tools change, and what they cost.",
       "Volunteer capacity around jobs, family and the calendar.",
       "Funding cycles and what funders are prioritizing.",
-      "Changes to the platforms The Labs relies on, such as GitHub, Slack and Luma.",
-      "Priorities of the national organization and the main OLOS project."
+      "Changes to the platforms relied on, such as GitHub, Slack and Luma.",
+      "Job and upskilling priorities."
     ]
   },
   "links": [
@@ -194,18 +192,18 @@
     },
     {
       "label": "Volunteer",
-      "url": "https://github.com/wash-TheUpskillingLabs/c04-frontdoor/issues/1",
+      "url": "https://theupskillinglabs.org/get-involved",
       "kind": "secondary"
     },
     {
       "label": "Donate",
-      "url": "https://theupskillinglabs.org",
+      "url": "https://theupskillinglabs.org/donate",
       "kind": "secondary",
       "confirm": "Replace with the donate page URL."
     },
     {
       "label": "Events",
-      "url": "https://theupskillinglabs.org",
+      "url": "https://theupskillinglabs.org/events",
       "kind": "secondary",
       "confirm": "Replace with the events page URL."
     }

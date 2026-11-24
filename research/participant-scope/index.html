@@ -9,13 +9,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: one schema-style ledger; sticky summary bar; each column row = name + type + 5-way choice + note; annotations below.
+/* Layout: schema-style ledger; sticky summary bar; collapsible annotations sidebar on the right (stacks below on narrow screens).
    The record lives in participants-scoping.md next to this page. The page reads it, and Download note writes a new copy to commit. */
 :root {
   --bg: #f6f7f9; --surface: #ffffff; --fg: #1b2230; --muted: #5f6b7d; --line: #dde2ea;
   --accent: #3d5afe; --accent-soft: #e8ecff;
   --c-national: #1f6feb; --c-regional: #1a7f4b; --c-both: #8a4fd8; --c-new: #c2410c; --c-unsure: #6b7280;
-  --legacy: #a15c00; --legacy-bg: #fff4e0; --warn-bg: #fff4e0;
+  --legacy: #a15c00; --legacy-bg: #fff4e0; --warn-bg: #fff4e0; --danger: #b42318; --backdrop: rgba(17, 20, 26, .45);
   --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   color-scheme: light;
@@ -24,16 +24,16 @@
   --bg: #11141a; --surface: #181c24; --fg: #e6e9ef; --muted: #98a2b3; --line: #2a303b;
   --accent: #8ea2ff; --accent-soft: #232a45;
   --c-national: #58a6ff; --c-regional: #4ec98a; --c-both: #b48cf2; --c-new: #f08a4b; --c-unsure: #9aa3b0;
-  --legacy: #f0b44c; --legacy-bg: #2e2412; --warn-bg: #2e2412; color-scheme: dark; } }
+  --legacy: #f0b44c; --legacy-bg: #2e2412; --warn-bg: #2e2412; --danger: #f97066; --backdrop: rgba(0, 0, 0, .6); color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #11141a; --surface: #181c24; --fg: #e6e9ef; --muted: #98a2b3; --line: #2a303b;
   --accent: #8ea2ff; --accent-soft: #232a45;
   --c-national: #58a6ff; --c-regional: #4ec98a; --c-both: #b48cf2; --c-new: #f08a4b; --c-unsure: #9aa3b0;
-  --legacy: #f0b44c; --legacy-bg: #2e2412; --warn-bg: #2e2412; color-scheme: dark; }
+  --legacy: #f0b44c; --legacy-bg: #2e2412; --warn-bg: #2e2412; --danger: #f97066; --backdrop: rgba(0, 0, 0, .6); color-scheme: dark; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
-.wrap { max-width: 1100px; margin: 0 auto; padding-block: 24px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1500px; margin: 0 auto; padding-block: 24px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 h1 { font-size: 1.6rem; margin: 0 0 4px; font-weight: 600; text-wrap: balance; }
 h1 code { font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
 h2 { font-size: 1.15rem; margin: 32px 0 6px; font-weight: 600; }
@@ -75,7 +75,38 @@ ol.rows { list-style: none; margin: 12px 0 0; padding: 0; background: var(--surf
 .note::placeholder { color: var(--muted); opacity: .7; }
 .note:hover, .note:focus { border-color: var(--line); background: var(--bg); outline: none; }
 textarea { width: 100%; font-family: var(--font-mono); font-size: 13px; line-height: 1.5; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
-#annotations { min-height: 200px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.side { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-top: 12px; min-width: 0; }
+.side-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.side h2 { margin: 0; }
+.icon-btn { font: inherit; font-size: 18px; line-height: 1; width: 32px; height: 32px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--muted); cursor: pointer; }
+.icon-btn:hover { border-color: var(--line); color: var(--fg); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#annotations { min-height: 240px; resize: vertical; }
+.has-notes::after { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; margin-left: 6px; vertical-align: 1px; }
+@media (min-width: 1000px) {
+  .layout.notes-open { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); align-items: start; }
+  .side { position: sticky; top: calc(var(--bar-h, 64px) + 12px); max-height: calc(100vh - var(--bar-h, 64px) - 24px); display: flex; flex-direction: column; gap: 8px; }
+  .side #annotations { flex: 1 1 auto; min-height: 0; height: 60vh; }
+}
+.menu { position: relative; }
+.menu > summary { list-style: none; }
+.menu > summary::-webkit-details-marker { display: none; }
+.menu > summary::after { content: " \25BE"; }
+.menu-list { position: absolute; right: 0; top: calc(100% + 4px); z-index: 6; min-width: 210px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; display: flex; flex-direction: column; box-shadow: 0 8px 24px rgba(0, 0, 0, .12); }
+.menu-list a, .menu-list button { font: inherit; font-size: 13px; text-align: left; padding: 8px 10px; border-radius: 6px; border: 0; background: transparent; color: var(--fg); text-decoration: none; cursor: pointer; }
+.menu-list a:hover, .menu-list button:hover, .menu-list a:focus-visible, .menu-list button:focus-visible { background: var(--accent-soft); outline: none; }
+.btn.danger { border-color: var(--danger); color: var(--danger); background: transparent; }
+.btn.danger.solid { background: var(--danger); color: #fff; }
+.btn:disabled { opacity: .45; cursor: default; }
+dialog { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); padding: 20px; width: min(460px, calc(100vw - 32px)); }
+dialog::backdrop { background: var(--backdrop); }
+dialog h2 { margin: 0 0 8px; }
+dialog p { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+dialog fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0 0 16px; display: flex; flex-direction: column; gap: 6px; }
+dialog legend { font-size: 13px; font-weight: 600; padding: 0 4px; }
+dialog label { font-size: 14px; display: flex; gap: 8px; align-items: center; cursor: pointer; }
+.dlg-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
 .out textarea { min-height: 160px; font-size: 12px; margin-top: 12px; }
 .how { color: var(--muted); font-size: 13px; max-width: 70ch; }
 .how ol { padding-left: 1.2em; margin: 6px 0 0; }
@@ -92,7 +123,7 @@ textarea { width: 100%; font-family: var(--font-mono); font-size: 13px; line-hei
 <body>
 <div class="wrap">
   <h1>Where does each <code>participants</code> column live?</h1>
-  <p class="lede">For each column of the OLOS <code>participants</code> table, pick National, Regional, Both, New table, or Unsure. Add a note on any row, and longer discussion under Annotations. The record is <a href="participants-scoping.md"><code>participants-scoping.md</code></a> in this folder. Changes you make here stay in this browser tab until you download the note and commit it.</p>
+  <p class="lede">For each column of the OLOS <code>participants</code> table, pick National, Regional, Both, New table, or Unsure. Add a note on any row, and keep longer discussion in the Annotations sidebar (<strong>Open notes</strong>). Use <strong>Data dictionary</strong> to open the dictionary in another tab or window while you work. The record is <a href="participants-scoping.md"><code>participants-scoping.md</code></a> in this folder. Changes you make here stay in this browser tab until you download the note and commit it.</p>
   <div class="status" role="status"><span id="status">Loading the note…</span><span class="dirty" id="dirty" hidden>Unsaved changes</span></div>
 
   <div class="bar">
@@ -102,29 +133,61 @@ textarea { width: 100%; font-family: var(--font-mono); font-size: 13px; line-hei
       <button class="btn" id="dlMd" type="button">Download note (.md)</button>
       <button class="btn ghost" id="dlCsv" type="button">Download CSV</button>
       <button class="btn ghost" id="copyBtn" type="button">Copy Markdown</button>
-      <button class="btn ghost" id="openBtn" type="button">Open a note…</button>
+      <button class="btn ghost" id="openBtn" type="button">Load a note file…</button>
+      <details class="menu" id="dictMenu">
+        <summary class="btn ghost">Data dictionary</summary>
+        <div class="menu-list">
+          <a id="dictTab" href="/research/read/?doc=participant-scope/participants-data-dictionary.md" target="_blank" rel="noopener">Open in a new tab</a>
+          <button id="dictWin" type="button">Open in a new window</button>
+        </div>
+      </details>
+      <button class="btn ghost" id="notesBtn" type="button" aria-expanded="false" aria-controls="side">Open notes</button>
+      <button class="btn danger" id="clearBtn" type="button">Clear table…</button>
       <input type="file" id="fileIn" accept=".md,text/markdown,text/plain" hidden>
     </div>
     <div class="progress" aria-hidden="true"><i id="prog"></i></div>
   </div>
 
-  <ol class="rows" id="rows"></ol>
-
-  <h2 id="ann-h">Annotations</h2>
-  <p class="how">Discussion, open questions and context. This text is saved under <strong>## Annotations</strong> in the note. Start each entry with a date and your name, for example <code>- 2026-11-19 (Thomas): …</code></p>
-  <textarea id="annotations" aria-labelledby="ann-h"></textarea>
+  <div class="layout" id="layout">
+    <ol class="rows" id="rows"></ol>
+    <aside class="side" id="side" aria-labelledby="ann-h" hidden>
+      <div class="side-head">
+        <h2 id="ann-h">Annotations</h2>
+        <button class="icon-btn" id="closeNotes" type="button" aria-label="Close annotations">&times;</button>
+      </div>
+      <p class="how">Discussion, open questions and context. Saved under <strong>## Annotations</strong> when you download the note. Start each entry with a date and your name, for example <code>- 2026-11-24 (Thomas): …</code></p>
+      <textarea id="annotations" aria-labelledby="ann-h"></textarea>
+    </aside>
+  </div>
 
   <h2>Saving to GitHub</h2>
   <div class="how">
     <ol>
       <li>Select <strong>Download note (.md)</strong>. You get <code>participants-scoping.md</code>.</li>
-      <li>On GitHub, open <code>research/participant-scoping/</code>, choose <strong>Add file → Upload files</strong>, and drop the downloaded file in to replace the old one.</li>
+      <li>On GitHub, open <code>research/participant-scope/</code>, choose <strong>Add file → Upload files</strong>, and drop the downloaded file in to replace the old one.</li>
       <li>Describe the change in the commit message and commit it, or open a pull request if you want review first.</li>
     </ol>
-    <p>If someone else committed a change since you opened this page, select <strong>Open a note…</strong> and load the latest file before editing, so you don't overwrite their work.</p>
+    <p>If someone else committed a change since you opened this page, select <strong>Load a note file…</strong> and load the latest file before editing, so you don't overwrite their work.</p>
   </div>
   <div class="out" id="out" hidden><textarea id="outText" readonly aria-label="Markdown export"></textarea></div>
 </div>
+
+<dialog id="clearDlg" aria-labelledby="clear-h">
+  <form method="dialog" id="clearForm">
+    <h2 id="clear-h">Clear the table?</h2>
+    <p id="clearSummary"></p>
+    <fieldset>
+      <legend>Save what you entered first?</legend>
+      <label><input type="checkbox" id="saveMd" checked> Markdown note (.md)</label>
+      <label><input type="checkbox" id="saveCsv"> CSV file (.csv)</label>
+    </fieldset>
+    <div class="dlg-actions">
+      <button class="btn ghost" type="submit" value="cancel" id="clearCancel">Cancel</button>
+      <button class="btn danger" type="submit" value="clear">Clear without saving</button>
+      <button class="btn danger solid" type="submit" value="save" id="saveClear">Save and clear</button>
+    </div>
+  </form>
+</dialog>
 
 <script>
 const NOTE_FILE = "participants-scoping.md";
@@ -269,6 +332,7 @@ function applyNote(md, source) {
   for (const [name] of COLUMNS) if (found[name]) state[name] = found[name];
   const unknown = Object.keys(found).filter(k => !COLUMNS.some(c => c[0] === k));
   $("annotations").value = ann;
+  markNotes();
   setDirty(false); paint();
   const decided = Object.values(state).filter(s => s.decision).length;
   setStatus(`Loaded ${source}: ${decided} of ${COLUMNS.length} columns decided.` + (unknown.length ? ` Ignored rows not in this table: ${unknown.join(", ")}.` : ""));
@@ -282,7 +346,7 @@ function buildNote() {
   const out = [
     "# participants column scoping", "",
     "Where each column of the OLOS `participants` table should live: in the national schema, in the regional (Greater Washington) copy, in both, or moved to a new table.", "",
-    "This file is the record. To change it, open the [scoping page](./) (on the site: `/research/participant-scoping/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.", "",
+    "This file is the record. To change it, open the [scoping page](./) (on the site: `/research/participant-scope/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.", "",
     "Decisions: National · Regional · Both · New table · Unsure. A blank Decision means not decided yet.", "",
     `Last updated: ${today()}`, "",
     "## Decisions", "",
@@ -315,7 +379,7 @@ function download(filename, text, type) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-$("dlMd").addEventListener("click", () => { download(NOTE_FILE, buildNote(), "text/markdown;charset=utf-8"); setDirty(false); setStatus(`Downloaded ${NOTE_FILE}. Commit it to research/participant-scoping/ to save it.`); });
+$("dlMd").addEventListener("click", () => { download(NOTE_FILE, buildNote(), "text/markdown;charset=utf-8"); setDirty(false); setStatus(`Downloaded ${NOTE_FILE}. Commit it to research/participant-scope/ to save it.`); });
 $("dlCsv").addEventListener("click", () => { download("participants-scoping.csv", buildCsv(), "text/csv;charset=utf-8"); setStatus("Downloaded participants-scoping.csv."); });
 $("copyBtn").addEventListener("click", () => {
   const md = buildNote(); const ta = $("outText"); $("out").hidden = false; ta.value = md;
@@ -330,7 +394,76 @@ $("fileIn").addEventListener("change", async e => {
   const f = e.target.files[0]; if (!f) return;
   applyNote(await f.text(), f.name); e.target.value = "";
 });
-$("annotations").addEventListener("input", () => setDirty(true));
+$("annotations").addEventListener("input", () => { setDirty(true); markNotes(); });
+
+// ---- Session notes sidebar ----
+function setNotesOpen(open, focus) {
+  $("side").hidden = !open;
+  $("layout").classList.toggle("notes-open", open);
+  const b = $("notesBtn");
+  b.setAttribute("aria-expanded", open);
+  b.textContent = open ? "Close notes" : "Open notes";
+  markNotes();
+  if (open && focus) $("annotations").focus();
+  if (!open && focus) b.focus();
+}
+function markNotes() { $("notesBtn").classList.toggle("has-notes", $("side").hidden && $("annotations").value.trim() !== ""); }
+$("notesBtn").addEventListener("click", () => setNotesOpen($("side").hidden, true));
+$("closeNotes").addEventListener("click", () => setNotesOpen(false, true));
+const syncBar = () => document.documentElement.style.setProperty("--bar-h", document.querySelector(".bar").offsetHeight + "px");
+window.addEventListener("resize", syncBar); syncBar();
+
+// ---- Data dictionary: new tab or new window ----
+const dictMenu = $("dictMenu");
+$("dictTab").addEventListener("click", () => { dictMenu.open = false; });
+$("dictWin").addEventListener("click", () => {
+  dictMenu.open = false;
+  const w = Math.min(1000, screen.availWidth - 40), h = Math.min(1000, screen.availHeight - 40);
+  const left = Math.max(0, screen.availWidth - w - 20);
+  const win = window.open($("dictTab").href, "olos-data-dictionary", `popup=yes,width=${w},height=${h},left=${left},top=20`);
+  if (win) { win.focus(); setStatus("Opened the data dictionary in a new window."); }
+  else setStatus("Your browser blocked the new window. Allow pop-ups for this site, or use Open in a new tab.");
+});
+document.addEventListener("click", e => { if (dictMenu.open && !dictMenu.contains(e.target)) dictMenu.open = false; });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && dictMenu.open) { dictMenu.open = false; dictMenu.querySelector("summary").focus(); } });
+
+// ---- Clear the table ----
+function entryCounts() {
+  let decisions = 0, notes = 0;
+  for (const [name] of COLUMNS) { const s = state[name] || {}; if (s.decision) decisions++; if ((s.note || "").trim()) notes++; }
+  return { decisions, notes, ann: $("annotations").value.trim() !== "" };
+}
+const stamp = () => { const d = new Date(); return `${today()}-${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}`; };
+const syncSaveBtn = () => { $("saveClear").disabled = !($("saveMd").checked || $("saveCsv").checked); };
+$("saveMd").addEventListener("change", syncSaveBtn);
+$("saveCsv").addEventListener("change", syncSaveBtn);
+$("clearBtn").addEventListener("click", () => {
+  const c = entryCounts();
+  const parts = [`${c.decisions} of ${COLUMNS.length} decisions`, `${c.notes} row note${c.notes === 1 ? "" : "s"}`, c.ann ? "the annotations" : "no annotations"];
+  $("clearSummary").textContent = `This clears ${parts[0]}, ${parts[1]} and ${parts[2]} from this page. The committed note file isn't changed until you download a new one and commit it.`;
+  syncSaveBtn();
+  $("clearDlg").returnValue = "";
+  $("clearDlg").showModal();
+  $("clearCancel").focus();
+});
+$("clearDlg").addEventListener("close", async () => {
+  const choice = $("clearDlg").returnValue;
+  if (choice !== "save" && choice !== "clear") return;
+  const saved = [];
+  if (choice === "save") {
+    const base = `participants-scoping-saved-${stamp()}`;
+    if ($("saveMd").checked) { download(`${base}.md`, buildNote(), "text/markdown;charset=utf-8"); saved.push(`${base}.md`); }
+    if ($("saveCsv").checked) {
+      if (saved.length) await new Promise(r => setTimeout(r, 400));
+      download(`${base}.csv`, buildCsv(), "text/csv;charset=utf-8"); saved.push(`${base}.csv`);
+    }
+  }
+  for (const k of Object.keys(state)) delete state[k];
+  $("annotations").value = "";
+  filterOpt = null; query = ""; $("q").value = "";
+  setDirty(true); paint(); markNotes();
+  setStatus(saved.length ? `Saved ${saved.join(" and ")}, then cleared the table.` : "Cleared the table. Nothing was saved.");
+});
 $("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); paint(); });
 window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
 
@@ -338,7 +471,7 @@ buildRows(); paint();
 fetch(NOTE_FILE, { cache: "no-store" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
   .then(md => applyNote(md, NOTE_FILE))
-  .catch(() => setStatus(`Couldn't load ${NOTE_FILE} automatically (this happens when the page is opened as a local file). Select "Open a note…" and choose it, or start fresh.`));
+  .catch(() => setStatus(`Couldn't load ${NOTE_FILE} automatically (this happens when the page is opened as a local file). Select "Load a note file…" and choose it, or start fresh.`));
 </script>
 </body>
 </html>

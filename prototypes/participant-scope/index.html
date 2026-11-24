@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Participant Scoping Session</title>
+<meta name="description" content="Decide for each column of the OLOS participants table whether it belongs at the National level, Regional level, Both, a New table, or is Unsure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Prototype copy for a facilitated National + Regional session. Starts blank.
+   Layout: schema-style ledger on the left, session notes pinned on the right (stacks below on narrow screens).
+   The record lives in participants-scoping.md next to this page. The page reads it, and Download note writes a new copy to commit. */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --fg: #1b2230; --muted: #5f6b7d; --line: #dde2ea;
+  --accent: #3d5afe; --accent-soft: #e8ecff;
+  --c-national: #1f6feb; --c-regional: #1a7f4b; --c-both: #8a4fd8; --c-new: #c2410c; --c-unsure: #6b7280;
+  --legacy: #a15c00; --legacy-bg: #fff4e0; --warn-bg: #fff4e0; --danger: #b42318; --backdrop: rgba(17, 20, 26, .45);
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11141a; --surface: #181c24; --fg: #e6e9ef; --muted: #98a2b3; --line: #2a303b;
+  --accent: #8ea2ff; --accent-soft: #232a45;
+  --c-national: #58a6ff; --c-regional: #4ec98a; --c-both: #b48cf2; --c-new: #f08a4b; --c-unsure: #9aa3b0;
+  --legacy: #f0b44c; --legacy-bg: #2e2412; --warn-bg: #2e2412; --danger: #f97066; --backdrop: rgba(0, 0, 0, .6); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #11141a; --surface: #181c24; --fg: #e6e9ef; --muted: #98a2b3; --line: #2a303b;
+  --accent: #8ea2ff; --accent-soft: #232a45;
+  --c-national: #58a6ff; --c-regional: #4ec98a; --c-both: #b48cf2; --c-new: #f08a4b; --c-unsure: #9aa3b0;
+  --legacy: #f0b44c; --legacy-bg: #2e2412; --warn-bg: #2e2412; --danger: #f97066; --backdrop: rgba(0, 0, 0, .6); color-scheme: dark; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1500px; margin: 0 auto; padding-block: 24px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1 { font-size: 1.6rem; margin: 0 0 4px; font-weight: 600; text-wrap: balance; }
+h1 code { font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+h2 { font-size: 1.15rem; margin: 32px 0 6px; font-weight: 600; }
+.lede { color: var(--muted); margin: 0 0 12px; max-width: 70ch; }
+.lede code { font-family: var(--font-mono); font-size: .9em; }
+.status { font-size: 13px; color: var(--muted); margin-bottom: 12px; min-height: 1.2em; }
+.dirty { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 4px; background: var(--warn-bg); color: var(--legacy); margin-left: 6px; }
+.bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.tally { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 auto; }
+.chip { font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-family: inherit; color: var(--fg); font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+.chip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; }
+input[type="search"] { font: inherit; font-size: 14px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); width: 180px; }
+.btn { font: inherit; font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.progress { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; flex-basis: 100%; }
+.progress > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .2s; }
+ol.rows { list-style: none; margin: 12px 0 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); gap: 8px 16px; padding: 10px 14px; border-top: 1px solid var(--line); align-items: center; }
+.row:first-child { border-top: 0; }
+.row.decided { box-shadow: inset 3px 0 0 var(--row-color, transparent); }
+.col { min-width: 0; }
+.name { font-family: var(--font-mono); font-size: 14px; font-weight: 500; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.key { font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; padding: 1px 5px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+.type { font-family: var(--font-mono); font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.legacy { font-size: 11px; color: var(--legacy); background: var(--legacy-bg); padding: 1px 6px; border-radius: 4px; margin-left: 4px; white-space: nowrap; }
+.choose { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.seg { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg label { position: relative; text-align: center; font-size: 13px; padding: 6px 2px; cursor: pointer; border-left: 1px solid var(--line); user-select: none; color: var(--muted); }
+.seg label:first-child { border-left: 0; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg label:hover { background: var(--bg); color: var(--fg); }
+.seg label:has(input:checked) { background: var(--opt); color: #fff; font-weight: 600; }
+.seg label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
+.seg .n { font-family: var(--font-mono); font-size: 10px; opacity: .7; margin-right: 3px; }
+.note { font: inherit; font-size: 13px; padding: 5px 8px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--fg); width: 100%; }
+.note::placeholder { color: var(--muted); opacity: .7; }
+.note:hover, .note:focus { border-color: var(--line); background: var(--bg); outline: none; }
+textarea { width: 100%; font-family: var(--font-mono); font-size: 13px; line-height: 1.5; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.side { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-top: 12px; min-width: 0; }
+.side-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.side h2 { margin: 0; }
+.icon-btn { font: inherit; font-size: 18px; line-height: 1; width: 32px; height: 32px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--muted); cursor: pointer; }
+.icon-btn:hover { border-color: var(--line); color: var(--fg); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#annotations { min-height: 240px; resize: vertical; }
+.has-notes::after { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; margin-left: 6px; vertical-align: 1px; }
+@media (min-width: 1000px) {
+  .layout.notes-open { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); align-items: start; }
+  .side { position: sticky; top: calc(var(--bar-h, 64px) + 12px); max-height: calc(100vh - var(--bar-h, 64px) - 24px); display: flex; flex-direction: column; gap: 8px; }
+  .side #annotations { flex: 1 1 auto; min-height: 0; height: 60vh; }
+}
+.menu { position: relative; }
+.menu > summary { list-style: none; }
+.menu > summary::-webkit-details-marker { display: none; }
+.menu > summary::after { content: " \25BE"; }
+.menu-list { position: absolute; right: 0; top: calc(100% + 4px); z-index: 6; min-width: 210px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; display: flex; flex-direction: column; box-shadow: 0 8px 24px rgba(0, 0, 0, .12); }
+.menu-list a, .menu-list button { font: inherit; font-size: 13px; text-align: left; padding: 8px 10px; border-radius: 6px; border: 0; background: transparent; color: var(--fg); text-decoration: none; cursor: pointer; }
+.menu-list a:hover, .menu-list button:hover, .menu-list a:focus-visible, .menu-list button:focus-visible { background: var(--accent-soft); outline: none; }
+.btn.danger { border-color: var(--danger); color: var(--danger); background: transparent; }
+.btn.danger.solid { background: var(--danger); color: #fff; }
+.btn:disabled { opacity: .45; cursor: default; }
+dialog { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); padding: 20px; width: min(460px, calc(100vw - 32px)); }
+dialog::backdrop { background: var(--backdrop); }
+dialog h2 { margin: 0 0 8px; }
+dialog p { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+dialog fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0 0 16px; display: flex; flex-direction: column; gap: 6px; }
+dialog legend { font-size: 13px; font-weight: 600; padding: 0 4px; }
+dialog label { font-size: 14px; display: flex; gap: 8px; align-items: center; cursor: pointer; }
+.dlg-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.out textarea { min-height: 160px; font-size: 12px; margin-top: 12px; }
+.how { color: var(--muted); font-size: 13px; max-width: 70ch; }
+.how ol { padding-left: 1.2em; margin: 6px 0 0; }
+@media (max-width: 720px) {
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .seg label { font-size: 12px; }
+  .seg .n { display: none; }
+  input[type="search"] { width: 100%; }
+  .tools { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .progress > i { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Where does each <code>participants</code> column live?</h1>
+  <p class="lede">For each column of the OLOS <code>participants</code> table, pick National, Regional, Both, New table, or Unsure. Add a note on any row, and keep running notes in the Session notes sidebar (<strong>Open notes</strong>). Use <strong>Data dictionary</strong> to open the dictionary in another tab or window while you work. The record is <a href="participants-scoping.md"><code>participants-scoping.md</code></a> in this folder. Changes you make here stay in this browser tab until you download the note and commit it.</p>
+  <div class="status" role="status"><span id="status">Loading the note…</span><span class="dirty" id="dirty" hidden>Unsaved changes</span></div>
+
+  <div class="bar">
+    <div class="tally" id="tally"></div>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Filter columns" aria-label="Filter columns">
+      <button class="btn" id="dlMd" type="button">Download note (.md)</button>
+      <button class="btn ghost" id="dlCsv" type="button">Download CSV</button>
+      <button class="btn ghost" id="copyBtn" type="button">Copy Markdown</button>
+      <button class="btn ghost" id="openBtn" type="button">Load a note file…</button>
+      <details class="menu" id="dictMenu">
+        <summary class="btn ghost">Data dictionary</summary>
+        <div class="menu-list">
+          <a id="dictTab" href="/research/read/?doc=participant-scope/participants-data-dictionary.md" target="_blank" rel="noopener">Open in a new tab</a>
+          <button id="dictWin" type="button">Open in a new window</button>
+        </div>
+      </details>
+      <button class="btn ghost" id="notesBtn" type="button" aria-expanded="false" aria-controls="side">Open notes</button>
+      <button class="btn danger" id="clearBtn" type="button">Clear table…</button>
+      <input type="file" id="fileIn" accept=".md,text/markdown,text/plain" hidden>
+    </div>
+    <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+  </div>
+
+  <div class="layout" id="layout">
+    <ol class="rows" id="rows"></ol>
+    <aside class="side" id="side" aria-labelledby="ann-h" hidden>
+      <div class="side-head">
+        <h2 id="ann-h">Session notes</h2>
+        <button class="icon-btn" id="closeNotes" type="button" aria-label="Close notes">&times;</button>
+      </div>
+      <p class="how">Discussion, open questions and context. Saved under <strong>## Annotations</strong> when you download the note. Start each entry with a date and a role, for example <code>- 2026-12-01 (Regional): …</code></p>
+      <textarea id="annotations" aria-labelledby="ann-h"></textarea>
+    </aside>
+  </div>
+
+  <h2>Saving to GitHub</h2>
+  <div class="how">
+    <ol>
+      <li>Select <strong>Download note (.md)</strong>. You get <code>participants-scoping.md</code>.</li>
+      <li>On GitHub, open <code>prototypes/participant-scope/</code>, choose <strong>Add file → Upload files</strong>, and drop the downloaded file in to replace the old one.</li>
+      <li>Describe the change in the commit message and commit it, or open a pull request if you want review first.</li>
+    </ol>
+    <p>If someone else committed a change since you opened this page, select <strong>Load a note file…</strong> and load the latest file before editing, so you don't overwrite their work.</p>
+  </div>
+  <div class="out" id="out" hidden><textarea id="outText" readonly aria-label="Markdown export"></textarea></div>
+</div>
+
+<dialog id="clearDlg" aria-labelledby="clear-h">
+  <form method="dialog" id="clearForm">
+    <h2 id="clear-h">Clear the table?</h2>
+    <p id="clearSummary"></p>
+    <fieldset>
+      <legend>Save what you entered first?</legend>
+      <label><input type="checkbox" id="saveMd" checked> Markdown note (.md)</label>
+      <label><input type="checkbox" id="saveCsv"> CSV file (.csv)</label>
+    </fieldset>
+    <div class="dlg-actions">
+      <button class="btn ghost" type="submit" value="cancel" id="clearCancel">Cancel</button>
+      <button class="btn danger" type="submit" value="clear">Clear without saving</button>
+      <button class="btn danger solid" type="submit" value="save" id="saveClear">Save and clear</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+const NOTE_FILE = "participants-scoping.md";
+const OPTIONS = [
+  { v: "national",  label: "National",  color: "var(--c-national)" },
+  { v: "regional",  label: "Regional",  color: "var(--c-regional)" },
+  { v: "both",      label: "Both",      color: "var(--c-both)" },
+  { v: "new_table", label: "New table", color: "var(--c-new)" },
+  { v: "unsure",    label: "Unsure",    color: "var(--c-unsure)" },
+];
+const LEG = "legacy intake";
+// [name, type, flags]
+const COLUMNS = [
+  ["id","serial","PK"],["auth_user_id","uuid","UK"],["google_id","varchar(255) not null","UK"],["email","varchar(255) not null","UK"],
+  ["first_name","varchar(255) not null"],["last_name","varchar(255) not null"],["preferred_name","varchar(255)"],["gender","varchar(100)"],
+  ["state","varchar(10)"],["neighborhood","varchar(255)"],["dcpl_card","varchar(20)",LEG],["dcpl_info","boolean",LEG],
+  ["work_situation","varchar(50)"],["main_focus","varchar(50)",LEG],["sector","varchar(255)"],["current_title","varchar(255)"],
+  ["linkedin","varchar(500)"],["ai_tool_familiarity","smallint"],["participation_commitment","varchar(20)",LEG],["primary_expertise","varchar(500)"],
+  ["volunteer_interest","varchar(500)"],["text_updates","boolean"],["photo_video_consent","boolean not null"],["source","varchar(255)"],
+  ["slack_username","varchar(255)"],["github_username","varchar(255)"],["drive_email","varchar(255)"],["created_at","timestamp"],
+  ["profile_image_url","text"],["last_pulse_completed_at","timestamp"],["phone_number","varchar(50)"],["email_updates","boolean"],
+  ["comms_consent","boolean not null"],["availability_notes","text"],["commitment_notes","text"],["interest_areas","text"],
+  ["moderator_experience","text"],["notes","text"],["contact_consent","boolean not null"],["ai_experience_level","ai_experience_level not null"],
+  ["availability_snippet","text"],["zip","varchar(10)"],["metro_slug","varchar(50)"],["role_intents","text[] not null"],
+  ["referred_by","varchar(255)"],["agreement_version","varchar(50)"],["agreement_accepted_at","timestamptz"],["is_staff","boolean not null"],
+  ["is_test","boolean not null"],["handle","varchar(50)"],["bio","text"],["headline","varchar(200)"],
+  ["public_profile_visible","boolean not null"],["metro_id","integer"],["years_experience","varchar"],["education_level","varchar"],
+  ["sector_other","varchar"],["created_via","varchar not null"],["lab_follow_seeded","boolean not null"],["page_follows_seeded","boolean not null"],
+  ["archived_at","timestamptz"],
+];
+const ANN_HINT = "Discussion, open questions and context for the decisions above. Add dated entries.";
+const state = {};   // column -> {decision, note}
+let filterOpt = null, query = "", dirty = false;
+const $ = id => document.getElementById(id);
+const optBy = Object.fromEntries(OPTIONS.map(o => [o.v, o]));
+const optByLabel = Object.fromEntries(OPTIONS.map(o => [o.label.toLowerCase(), o.v]));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function setDirty(v) { dirty = v; $("dirty").hidden = !v; }
+function setStatus(t) { $("status").textContent = t; }
+
+function buildRows() {
+  const ol = $("rows");
+  COLUMNS.forEach(([name, type, flag]) => {
+    const li = document.createElement("li");
+    li.className = "row"; li.dataset.col = name;
+    const key = flag === "PK" || flag === "UK" ? flag : "";
+    li.innerHTML = `
+      <div class="col">
+        <div class="name">${key ? `<span class="key">${key}</span>` : ""}<span>${esc(name)}</span></div>
+        <div class="type">${esc(type)}${flag === LEG ? `<span class="legacy">legacy intake</span>` : ""}</div>
+      </div>
+      <div class="choose">
+        <div class="seg" role="radiogroup" aria-label="Scope for ${esc(name)}">
+          ${OPTIONS.map((o, j) => `<label style="--opt:${o.color}"><input type="radio" id="r-${name}-${o.v}" name="r-${name}" value="${o.v}"><span class="n">${j + 1}</span>${o.label}</label>`).join("")}
+        </div>
+        <input class="note" id="n-${name}" type="text" placeholder="Note (optional)" aria-label="Note for ${esc(name)}" maxlength="500">
+      </div>`;
+    ol.appendChild(li);
+    li.querySelectorAll("input[type=radio]").forEach(r => r.addEventListener("change", () => edit(name, { decision: r.value })));
+    const note = li.querySelector(".note");
+    note.addEventListener("input", () => edit(name, { note: note.value }, true));
+  });
+}
+
+function edit(name, patch, quiet) {
+  state[name] = { ...(state[name] || {}), ...patch };
+  setDirty(true);
+  if (!quiet) paint(); else paintCounts();
+}
+
+function paint() {
+  for (const [name] of COLUMNS) {
+    const s = state[name] || {}; const li = document.querySelector(`[data-col="${name}"]`);
+    OPTIONS.forEach(o => { $(`r-${name}-${o.v}`).checked = s.decision === o.v; });
+    const note = $(`n-${name}`); if (document.activeElement !== note) note.value = s.note || "";
+    if (s.decision && optBy[s.decision]) { li.classList.add("decided"); li.style.setProperty("--row-color", optBy[s.decision].color); }
+    else li.classList.remove("decided");
+    const matchQ = !query || name.includes(query);
+    const matchF = !filterOpt || (filterOpt === "open" ? !s.decision : s.decision === filterOpt);
+    li.hidden = !(matchQ && matchF);
+  }
+  paintCounts();
+}
+
+function paintCounts() {
+  const counts = Object.fromEntries(OPTIONS.map(o => [o.v, 0])); let done = 0;
+  for (const [name] of COLUMNS) { const d = state[name]?.decision; if (d && optBy[d]) { counts[d]++; done++; } }
+  const t = $("tally"); t.innerHTML = "";
+  const mk = (v, label, n, color) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.setAttribute("aria-pressed", filterOpt === v);
+    b.innerHTML = `${color ? `<span class="dot" style="background:${color}"></span>` : ""}${label} ${n}`;
+    b.onclick = () => { filterOpt = filterOpt === v ? null : v; paint(); }; t.appendChild(b);
+  };
+  mk("open", "Undecided", COLUMNS.length - done);
+  OPTIONS.forEach(o => mk(o.v, o.label, counts[o.v], o.color));
+  $("prog").style.width = (done / COLUMNS.length * 100) + "%";
+}
+
+// ---- Markdown note: parse and write ----
+function splitRow(line) {
+  // split a markdown table row on unescaped pipes
+  const cells = []; let cur = "";
+  const s = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "\\" && s[i + 1] === "|") { cur += "|"; i++; }
+    else if (s[i] === "|") { cells.push(cur.trim()); cur = ""; }
+    else cur += s[i];
+  }
+  cells.push(cur.trim());
+  return cells;
+}
+
+function parseNote(md) {
+  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  const found = {}; let header = null;
+  for (const line of lines) {
+    if (!line.trim().startsWith("|")) { header = line.trim() === "" ? header : null; continue; }
+    const cells = splitRow(line);
+    if (!header) { header = cells.map(c => c.toLowerCase()); continue; }
+    if (cells.every(c => /^:?-+:?$/.test(c))) continue;
+    const ci = header.indexOf("column"), di = header.indexOf("decision"), ni = header.indexOf("note");
+    if (ci < 0 || di < 0) continue;
+    const name = cells[ci].replace(/`/g, "").trim();
+    const decision = optByLabel[(cells[di] || "").toLowerCase()] || null;
+    found[name] = { decision, note: ni >= 0 ? (cells[ni] || "") : "" };
+  }
+  const annMatch = md.match(/^##\s+Annotations\s*$/m);
+  let ann = "";
+  if (annMatch) {
+    ann = md.slice(annMatch.index + annMatch[0].length).replace(/^\s*\n/, "");
+    ann = ann.replace(ANN_HINT, "").replace(/^\s+/, "").replace(/\s+$/, "");
+  }
+  return { found, ann };
+}
+
+function applyNote(md, source) {
+  const { found, ann } = parseNote(md);
+  const n = Object.keys(found).length;
+  if (!n) { setStatus(`No decisions table found in ${source}. Nothing was loaded.`); return false; }
+  for (const k of Object.keys(state)) delete state[k];
+  for (const [name] of COLUMNS) if (found[name]) state[name] = found[name];
+  const unknown = Object.keys(found).filter(k => !COLUMNS.some(c => c[0] === k));
+  $("annotations").value = ann;
+  markNotes();
+  setDirty(false); paint();
+  const decided = Object.values(state).filter(s => s.decision).length;
+  setStatus(`Loaded ${source}: ${decided} of ${COLUMNS.length} columns decided.` + (unknown.length ? ` Ignored rows not in this table: ${unknown.join(", ")}.` : ""));
+  return true;
+}
+
+const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
+const cell = s => (s || "").replace(/\|/g, "\\|").replace(/\s*\n\s*/g, " ").trim();
+
+function buildNote() {
+  const out = [
+    "# participants column scoping", "",
+    "Where each column of the OLOS `participants` table should live: in the national schema, in the regional (Greater Washington) copy, in both, or moved to a new table.", "",
+    "This file is the record. To change it, open the [scoping page](./) (on the site: `/prototypes/participant-scope/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.", "",
+    "Decisions: National · Regional · Both · New table · Unsure. A blank Decision means not decided yet.", "",
+    `Last updated: ${today()}`, "",
+    "## Decisions", "",
+    "| Column | Type | Flags | Decision | Note |", "|---|---|---|---|---|",
+  ];
+  for (const [name, type, flag] of COLUMNS) {
+    const s = state[name] || {};
+    out.push(`| \`${name}\` | ${type} | ${flag || ""} | ${s.decision ? optBy[s.decision].label : ""} | ${cell(s.note)} |`);
+  }
+  out.push("", "## Annotations", "", ANN_HINT, "");
+  const ann = $("annotations").value.replace(/\s+$/, "");
+  if (ann) out.push(ann, "");
+  return out.join("\n");
+}
+
+function buildCsv() {
+  const q = v => /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+  const rows = [["column", "type", "flags", "decision", "note"].join(",")];
+  for (const [name, type, flag] of COLUMNS) {
+    const s = state[name] || {};
+    rows.push([name, type, flag || "", s.decision ? optBy[s.decision].label : "", s.note || ""].map(v => q(String(v))).join(","));
+  }
+  return rows.join("\n") + "\n";
+}
+
+function download(filename, text, type) {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const a = document.createElement("a"); a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+$("dlMd").addEventListener("click", () => { download(NOTE_FILE, buildNote(), "text/markdown;charset=utf-8"); setDirty(false); setStatus(`Downloaded ${NOTE_FILE}. Commit it to prototypes/participant-scope/ to save it.`); });
+$("dlCsv").addEventListener("click", () => { download("participants-scoping.csv", buildCsv(), "text/csv;charset=utf-8"); setStatus("Downloaded participants-scoping.csv."); });
+$("copyBtn").addEventListener("click", () => {
+  const md = buildNote(); const ta = $("outText"); $("out").hidden = false; ta.value = md;
+  const fallback = () => { ta.focus(); ta.select(); setStatus("Copy was blocked. The Markdown is selected at the bottom of the page; press Cmd+C."); };
+  try { navigator.clipboard.writeText(md).then(() => setStatus("Copied the note as Markdown."), fallback); } catch { fallback(); }
+});
+$("openBtn").addEventListener("click", () => {
+  if (dirty && !window.confirm("Opening a note replaces your unsaved changes on this page. Continue?")) return;
+  $("fileIn").click();
+});
+$("fileIn").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (!f) return;
+  applyNote(await f.text(), f.name); e.target.value = "";
+});
+$("annotations").addEventListener("input", () => { setDirty(true); markNotes(); });
+
+// ---- Session notes sidebar ----
+function setNotesOpen(open, focus) {
+  $("side").hidden = !open;
+  $("layout").classList.toggle("notes-open", open);
+  const b = $("notesBtn");
+  b.setAttribute("aria-expanded", open);
+  b.textContent = open ? "Close notes" : "Open notes";
+  markNotes();
+  if (open && focus) $("annotations").focus();
+  if (!open && focus) b.focus();
+}
+function markNotes() { $("notesBtn").classList.toggle("has-notes", $("side").hidden && $("annotations").value.trim() !== ""); }
+$("notesBtn").addEventListener("click", () => setNotesOpen($("side").hidden, true));
+$("closeNotes").addEventListener("click", () => setNotesOpen(false, true));
+const syncBar = () => document.documentElement.style.setProperty("--bar-h", document.querySelector(".bar").offsetHeight + "px");
+window.addEventListener("resize", syncBar); syncBar();
+
+// ---- Data dictionary: new tab or new window ----
+const dictMenu = $("dictMenu");
+$("dictTab").addEventListener("click", () => { dictMenu.open = false; });
+$("dictWin").addEventListener("click", () => {
+  dictMenu.open = false;
+  const w = Math.min(1000, screen.availWidth - 40), h = Math.min(1000, screen.availHeight - 40);
+  const left = Math.max(0, screen.availWidth - w - 20);
+  const win = window.open($("dictTab").href, "olos-data-dictionary", `popup=yes,width=${w},height=${h},left=${left},top=20`);
+  if (win) { win.focus(); setStatus("Opened the data dictionary in a new window."); }
+  else setStatus("Your browser blocked the new window. Allow pop-ups for this site, or use Open in a new tab.");
+});
+document.addEventListener("click", e => { if (dictMenu.open && !dictMenu.contains(e.target)) dictMenu.open = false; });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && dictMenu.open) { dictMenu.open = false; dictMenu.querySelector("summary").focus(); } });
+
+// ---- Clear the table ----
+function entryCounts() {
+  let decisions = 0, notes = 0;
+  for (const [name] of COLUMNS) { const s = state[name] || {}; if (s.decision) decisions++; if ((s.note || "").trim()) notes++; }
+  return { decisions, notes, ann: $("annotations").value.trim() !== "" };
+}
+const stamp = () => { const d = new Date(); return `${today()}-${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}`; };
+const syncSaveBtn = () => { $("saveClear").disabled = !($("saveMd").checked || $("saveCsv").checked); };
+$("saveMd").addEventListener("change", syncSaveBtn);
+$("saveCsv").addEventListener("change", syncSaveBtn);
+$("clearBtn").addEventListener("click", () => {
+  const c = entryCounts();
+  const parts = [`${c.decisions} of ${COLUMNS.length} decisions`, `${c.notes} row note${c.notes === 1 ? "" : "s"}`, c.ann ? "the session notes" : "no session notes"];
+  $("clearSummary").textContent = `This clears ${parts[0]}, ${parts[1]} and ${parts[2]} from this page. The committed note file isn't changed until you download a new one and commit it.`;
+  syncSaveBtn();
+  $("clearDlg").returnValue = "";
+  $("clearDlg").showModal();
+  $("clearCancel").focus();
+});
+$("clearDlg").addEventListener("close", async () => {
+  const choice = $("clearDlg").returnValue;
+  if (choice !== "save" && choice !== "clear") return;
+  const saved = [];
+  if (choice === "save") {
+    const base = `participants-scoping-saved-${stamp()}`;
+    if ($("saveMd").checked) { download(`${base}.md`, buildNote(), "text/markdown;charset=utf-8"); saved.push(`${base}.md`); }
+    if ($("saveCsv").checked) {
+      if (saved.length) await new Promise(r => setTimeout(r, 400));
+      download(`${base}.csv`, buildCsv(), "text/csv;charset=utf-8"); saved.push(`${base}.csv`);
+    }
+  }
+  for (const k of Object.keys(state)) delete state[k];
+  $("annotations").value = "";
+  filterOpt = null; query = ""; $("q").value = "";
+  setDirty(true); paint(); markNotes();
+  setStatus(saved.length ? `Saved ${saved.join(" and ")}, then cleared the table.` : "Cleared the table. Nothing was saved.");
+});
+$("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); paint(); });
+window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+buildRows(); paint();
+fetch(NOTE_FILE, { cache: "no-store" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+  .then(md => applyNote(md, NOTE_FILE))
+  .catch(() => setStatus(`Couldn't load ${NOTE_FILE} automatically (this happens when the page is opened as a local file). Select "Load a note file…" and choose it, or start fresh.`));
+</script>
+</body>
+</html>

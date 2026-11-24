@@ -4,7 +4,7 @@ Which of the OLOS database's 80 tables and 795 columns the code actually uses, a
 
 - **Source:** `wash-TheUpskillingLabs/c04-olos` at commit [`ca543cc`](https://github.com/wash-TheUpskillingLabs/c04-olos/tree/ca543cc01fb3d7e6ef17d2281832e766b56ec0c3) (2026-11-17). No migration has changed since the ERDs were built (`63dc2df`).
 - **Companion file:** `olos-column-usage.csv`, one row per column (795 rows), listing the files and database functions that write or read it.
-- **Built:** 2026-11-19.
+- **Built:** 2026-11-19. **Corrected:** 2026-11-24 (`change_participant_email()` is called from outside this repo; see Database functions).
 
 ## How this was worked out
 
@@ -23,6 +23,7 @@ Which of the OLOS database's 80 tables and 795 columns the code actually uses, a
 **Limits.** This is reading the code, not the data:
 - A table can be wired up and still be empty.
 - People can enter data directly in the Supabase dashboard or by SQL, and the code can't show that.
+- Code outside this repo can also write to the database. At least one such writer exists: an "onboarding admin edge function" with full (service-role) access, named in migration `00085`. Its code isn't in this repo, so what it reads and writes isn't counted here.
 - Where code builds a query from variables, a column's use is inferred from its name. The CSV marks these as "Indirect" or "via select *", so you can see where the evidence is weaker.
 
 ## Summary
@@ -236,10 +237,10 @@ API routes may also be called by scripts or tools outside this repo. None were f
 
 ## Database functions
 
-There are 34 functions, not counting the built-in encryption extension's own. Only 2 are never reached:
+There are 34 functions, not counting the built-in encryption extension's own. Only one is never reached, and a second is called only from outside this repo:
 
-- **`change_participant_email()`.** Changes a person's email in both `participants` and the login. Nothing calls it.
-- **`is_banned_email()`.** The ban check is done in app code instead (`lib/auth/bans.ts`).
+- **`is_banned_email()`.** Never reached. The ban check is done in app code instead (`lib/auth/bans.ts`).
+- **`change_participant_email()`.** Changes a person's email in both `participants` and the login. Nothing in this repo calls it, but its migration (`00085`) says the onboarding admin edge function, which lives outside this repo, does. Treat it as in use. (Corrected 2026-11-24. The first version of this report said nothing calls it.)
 
 **Triggers.** Some fill in data on their own: `updated_at` timestamps, profile handles, role syncing and the regional auto-follows. Others only enforce rules, such as the pod membership fence and the project membership cap:
 
@@ -273,10 +274,10 @@ There are 34 functions, not counting the built-in encryption extension's own. On
 
 ## Corrections to the participants data dictionary
 
-This wider scan found two things that dictionary got wrong. The dictionary itself hasn't been changed.
+This scan found two things the dictionary got wrong. Both were corrected in the dictionary's 2026-11-24 revision, along with points from an independent Archify check.
 
-1. **The pod leader member edit isn't reachable.** The dictionary says pod leaders can edit `preferred_name`, `phone_number` and `availability_snippet`. The route exists, but nothing in the UI calls it. So `availability_snippet` currently has no way in, and nothing in the app writes `phone_number` either.
-2. **A second writer for five legacy fields.** `app/api/cycles/[cycle_id]/interest/route.ts` writes `state`, `work_situation`, `main_focus`, `sector` and `linkedin`. Nothing calls it either, so it doesn't change what reaches those fields in practice.
+1. **The pod leader member edit isn't reachable.** The dictionary said pod leaders can edit `preferred_name`, `phone_number` and `availability_snippet`. The route exists, but nothing in this repo calls it. Pod leaders' screens still read and show those fields. Any `availability_snippet` values come from outside this repo's code, such as direct edits in Supabase or the onboarding admin edge function.
+2. **A second writer for five legacy fields.** `app/api/cycles/[cycle_id]/interest/route.ts` writes `state`, `work_situation`, `main_focus`, `sector` and `linkedin`. Nothing in this repo calls it either.
 
 ## Every table
 

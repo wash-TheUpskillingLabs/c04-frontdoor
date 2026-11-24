@@ -5,7 +5,8 @@ What each column of the OLOS `participants` table holds, based only on evidence 
 - **Source:** [`wash-TheUpskillingLabs/c04-olos`](https://github.com/wash-TheUpskillingLabs/c04-olos) at commit [`ca543cc`](https://github.com/wash-TheUpskillingLabs/c04-olos/tree/ca543cc01fb3d7e6ef17d2281832e766b56ec0c3) (2026-11-17). That's newer than the commit the ERDs were built from (`63dc2df`). No migration between the two commits changes `participants`.
 - **Evidence used:** the 113 migrations in `supabase/migrations/`; the comments written into the database (`COMMENT ON COLUMN`); the sign-up form and its API; the profile editor and its validation rules; the legacy spreadsheet import (`scripts/migration/`), whose `column_mapping.csv` ties each original registration-form question to a column; and the code that reads each column.
 - **Not used:** Slack, meeting notes and production data. Nothing here shows how many rows actually hold a value. The [value-count query](#query-to-check-real-data) at the end answers that for someone with database access.
-- **Built:** 2026-11-19.
+- **Not covered:** code outside this repo. At least one outside writer exists: an "onboarding admin edge function" that acts on the database with full (service-role) access ([`00085`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/supabase/migrations/00085_service_role_admin_paths.sql)). Edits made directly in Supabase aren't visible either.
+- **Built:** 2026-11-19. **Rechecked:** 2026-11-24, against every place in the code that writes this table, and cross-checked with an independent Archify review (`Participants Data Dictionary Check 2026-11-24.html`). The OLOS code hadn't changed.
 
 ## How to read an entry
 
@@ -17,7 +18,7 @@ What each column of the OLOS `participants` table holds, based only on evidence 
 **Status** says whether anything still fills the column in:
 - **Active:** current code writes it.
 - **Legacy:** only the old registration form wrote it, through the one-time spreadsheet import. Some of these are still editable in the profile.
-- **Orphaned:** nothing in the code writes it.
+- **Orphaned:** nothing in the code writes it, or the only code that does is an API route nothing in the app calls. Status is only about what *writes* a column. An orphaned column can still be read and shown on screens, and it can still hold values entered another way, such as directly in Supabase.
 
 "Legacy form" below means the original Google Form, *Upskiller Registrations*. Its rows were loaded by `scripts/migration/migrate.py`, following `scripts/migration/column_mapping.csv`. Questions are quoted as they appear in that file.
 
@@ -57,7 +58,7 @@ What each column of the OLOS `participants` table holds, based only on evidence 
 | `created_at` | Active | Confirmed | When the row was created |
 | `profile_image_url` | Active | Confirmed | Avatar image URL |
 | `last_pulse_completed_at` | Active | Confirmed | When their last weekly pulse check was completed |
-| `phone_number` | Legacy and pod leaders | Confirmed | Phone for day-of event updates |
+| `phone_number` | Legacy | Confirmed | Phone for day-of event updates |
 | `email_updates` | Legacy | Confirmed | Opted in to email updates. Marked LEGACY in the database |
 | `comms_consent` | Legacy | Confirmed | Accepted "consent to receive communications". Marked LEGACY in the database |
 | `availability_notes` | Legacy | Confirmed | "Anything we should know about your availability?" |
@@ -67,7 +68,7 @@ What each column of the OLOS `participants` table holds, based only on evidence 
 | `notes` | Legacy | Confirmed | Merged from two legacy free-text answers, or an import audit note |
 | `contact_consent` | Active | Confirmed | The one current marketing opt-in |
 | `ai_experience_level` | **Orphaned** | **Partial** | new, consumer, builder or shipper; defined, but nothing sets it (everyone is `new`) |
-| `availability_snippet` | Active (pod leaders) | Confirmed | Short availability note pod leaders see, e.g. "weekends only" |
+| `availability_snippet` | **Orphaned** | Confirmed | Short availability note shown to pod leaders; no reachable app code sets it |
 | `zip` | Active | Confirmed | ZIP code; decides the suggested local lab |
 | `metro_slug` | Active | **Partial** | Local lab as a text slug; can drift from `metro_id` |
 | `role_intents` | Active | Confirmed | Ways they want to take part: cycle, events, volunteer, mentor |
@@ -114,10 +115,13 @@ Links point to the source at `ca543cc`.
 #### `google_id`
 - **Type:** `varchar(255)`, required, unique.
 - **What the name suggests:** a Google account ID. It came from the original spec ([`TUL_MVP_Spec.md`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/TUL_MVP_Spec.md)).
-- **What's actually stored:** an email address, from every writer.
+- **What's actually stored:** an email address, from every app writer and the legacy import.
   - The sign-up form sends `google_id: email` ([`funnel.tsx` L224](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/%28auth%29/register/funnel.tsx#L224)).
   - The legacy import fills it with the email too ([`migrate.py` L635–637, L703–707](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/scripts/migration/migrate.py#L635-L637)). It says this is the "prod convention" and that "the auth flow overwrites with the real Google sub on first sign-in".
   - No code does that overwrite. The sign-in callback only sets `auth_user_id`.
+  - The sign-up API accepts any text here (up to 200 characters), so it stores whatever the form sends ([`funnel-registration.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/validations/funnel-registration.ts)).
+  - Two test scripts write values that aren't emails, such as `seed-test-c4-p0` ([`scripts/ops/seed-test-cycle.mjs`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/scripts/ops/seed-test-cycle.mjs), [`scripts/verify/cycle-e2e.mjs`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/scripts/verify/cycle-e2e.mjs)). They create made-up testers and delete them afterwards.
+  - When an email is changed (see `email`), `google_id` keeps the old address.
 - **Read by:** the admin data browser ([`lib/entity-explorer/registry.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/entity-explorer/registry.ts)) and the ban record ([`lib/owner/ban.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/owner/ban.ts)).
 - **Confidence:** Partial. In practice it duplicates the email as it was at sign-up. Real Google account IDs are never stored. The login link is `auth_user_id`.
 
@@ -127,7 +131,11 @@ Links point to the source at `ca543cc`.
   - Sign-in matches on it, ignoring case.
   - The legacy import upserts on it.
   - Bans and tester grants are keyed on it.
-- **Written by:** the sign-up form (the Google account email) and the legacy import ("Email Address", lowercased and trimmed).
+- **Written by:**
+  - The sign-up form (the Google account email).
+  - The legacy import ("Email Address", lowercased and trimmed).
+  - The database function `change_participant_email()`, which changes it in both `participants` and the login ([`00085`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/supabase/migrations/00085_service_role_admin_paths.sql)). Only an owner, or server code with full access, can run it. Nothing in this repo calls it; its migration says the caller is the onboarding admin edge function, which lives outside this repo.
+- **Guarded by:** a trigger (`trg_guard_email`) that blocks every other change to `email` unless it comes from an owner or that server code.
 - **Confidence:** Confirmed.
 
 #### `first_name` and `last_name`
@@ -147,7 +155,7 @@ Links point to the source at `ca543cc`.
   - The legacy import ("Preferred Name").
   - The profile editor.
   - The admin name editor.
-  - Pod leaders, through their limited member edit ([`lib/validations/pod-member-update.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/validations/pod-member-update.ts)).
+  - Not pod leaders in practice. Their screens show it, but they can't change it: a limited member edit for them exists ([`app/api/pods/[pod_id]/members/[participant_id]/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pods/%5Bpod_id%5D/members/%5Bparticipant_id%5D/route.ts)), but nothing in the app calls it.
 - **Confidence:** Confirmed.
 
 #### `gender`
@@ -166,6 +174,7 @@ Links point to the source at `ca543cc`.
 - **Written by:**
   - The legacy import. Blank or unrecognized answers became `Other`, so `Other` mixes "outside the DMV" with "no answer".
   - The profile editor. Entering a ZIP code fills it in automatically through `stateFromZip`, and the person can still change it.
+  - Also a cycle-interest route, but nothing in the app calls it ([see below](#routes-that-write-participants-but-that-nothing-calls)).
 - **Not asked by:** the current sign-up form.
 - **Confidence:** Confirmed.
 
@@ -212,6 +221,7 @@ Links point to the source at `ca543cc`.
   - The sign-up form. It's required there, and its options match the database list exactly ([`lib/validations/funnel-registration.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/validations/funnel-registration.ts)).
   - The legacy import. Blank answers became `prefer not to say`.
   - The profile editor.
+  - Also a cycle-interest route, but nothing in the app calls it ([see below](#routes-that-write-participants-but-that-nothing-calls)).
 - **Confidence:** Confirmed.
 
 #### `main_focus`
@@ -226,13 +236,13 @@ Links point to the source at `ca543cc`.
   - `n/a`
 - **Database comment:** `LEGACY intake (pre-2026-07 flow)`.
 - **Meaning:** the answer to "If unemployed, underemployed, or in transition: What's your main focus over the next few months?".
-- **Written by:** the legacy import (blank answers became `n/a`) and the profile editor ("Main focus").
+- **Written by:** the legacy import (blank answers became `n/a`) and the profile editor ("Main focus"). A cycle-interest route also writes it, but nothing in the app calls it ([see below](#routes-that-write-participants-but-that-nothing-calls)).
 - **Confidence:** Confirmed. `n/a` mixes "doesn't apply to me" with "no answer".
 
 #### `sector`
 - **Type:** `varchar(255)`, free text.
 - **Meaning:** the answer to "What sector or field do you primarily work in?". It's labeled "Sector" in the profile.
-- **Written by:** the legacy import and the profile editor.
+- **Written by:** the legacy import and the profile editor. A cycle-interest route also writes it, but nothing in the app calls it ([see below](#routes-that-write-participants-but-that-nothing-calls)).
 - **Not the same as:** the `sectors` table or `cycles.sector_id`. Those are The Labs' own organizing units. Following a sector page is driven by the cycles someone is enrolled in, not by this column ([`lib/follows/seed.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/follows/seed.ts)).
 - **Confidence:** Confirmed.
 
@@ -245,6 +255,7 @@ Links point to the source at `ca543cc`.
 #### `linkedin`
 - **Type:** `varchar(500)`.
 - **Meaning:** a LinkedIn profile URL, from the legacy question "LinkedIn" and the profile editor.
+- **Written by:** the legacy import and the profile editor. A cycle-interest route also writes it, but nothing in the app calls it ([see below](#routes-that-write-participants-but-that-nothing-calls)).
 - **Read by:** the profile page and contact exports ([`lib/export/contacts.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/export/contacts.ts)).
 - **Confidence:** Confirmed.
 
@@ -341,7 +352,7 @@ Links point to the source at `ca543cc`.
   - Two legacy answers merged with labels ([`migrate.py` L601–614](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/scripts/migration/migrate.py#L601-L614)):
     - `Stewardship interest: …`: the answer to "What interests you about taking on a stewardship or leadership role?"
     - `Other: …`: the answer to "Anything else you'd like us to know?"
-  - An audit note, `stub from <sheet>, W1-004`, on placeholder rows. The import created these for people who appeared in other legacy sheets (for example, problem statement submissions) but never registered.
+  - An audit note, `stub from <sheet>, W1-004`, on placeholder rows. The import created these for people who appeared in the Energy or Health Pod Registration sheets but never filled in the registration form ([`migrate.py` pass 1.5](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/scripts/migration/migrate.py#L802-L912)).
 - **Written by:** the legacy import only.
 - **Read by:** nothing. The directory and admin data browser deliberately leave it out as personal data.
 - **Confidence:** Confirmed.
@@ -393,9 +404,9 @@ The same migration left a one-time step commented out: copying old opt-ins into 
 #### `phone_number`
 - **Type:** `varchar(50)`.
 - **Meaning:** the answer to "Phone number (Used for day-of updates about in-person events.)".
-- **Written by:** the legacy import and pod leaders (limited member edit).
+- **Written by:** the legacy import only. The pod leaders' member edit ([`app/api/pods/[pod_id]/members/[participant_id]/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pods/%5Bpod_id%5D/members/%5Bparticipant_id%5D/route.ts)) can set it, but nothing in the app calls that route.
 - **Not asked by:** the sign-up form or the profile editor.
-- **Read by:** contact exports and pod leader tools.
+- **Read by:** contact exports, including the pod leaders' roster download ([`app/api/pods/[pod_id]/contacts/export/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pods/%5Bpod_id%5D/contacts/export/route.ts)).
 - **Confidence:** Confirmed.
 
 ### How they found The Labs
@@ -469,7 +480,7 @@ The same migration left a one-time step commented out: copying old opt-ins into 
 - **Type:** `integer`, a reference to `metros(id)`. Added in [`00044`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/supabase/migrations/00044_directory_columns.sql).
 - **Meaning:** the person's local lab. The sign-up form sets it **only when the person joined an active lab**. People on a waitlist and people with no lab stay empty, and a waitlist place is recorded in `metro_waitlist_signups` instead ([`docs/LOCAL_LABS.md`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/docs/LOCAL_LABS.md)).
 - **Why it matters:** it gates registering for a cycle and which pods the person can join.
-- **Written by:** the sign-up form, and joining a lab later ([`lib/labs/membership.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/labs/membership.ts)).
+- **Written by:** the sign-up form, and joining a lab later ([`lib/labs/membership.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/labs/membership.ts)). Migration `00044` also filled it in once for rows that existed then, from `metro_slug`.
 - **Confidence:** Confirmed.
 
 #### `metro_slug`
@@ -518,10 +529,11 @@ The same migration left a one-time step commented out: copying old opt-ins into 
 - **Confidence:** Confirmed. It's a placeholder for a feature that isn't built.
 
 #### `availability_snippet`
-- **Type:** `text`. Pod leaders' edits are limited to 200 characters.
+- **Type:** `text`. The pod leaders' edit would limit it to 200 characters.
 - **Meaning:** a short, free-form availability note for pod leaders, e.g. "weekends only" ([PRD §7.3.1](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/docs/PRD-moderator-dashboard.md)).
-- **Written by:** pod leaders only, through the member edit ([`app/api/pods/[pod_id]/members/[participant_id]/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pods/%5Bpod_id%5D/members/%5Bparticipant_id%5D/route.ts)). The PRD says it's "captured at registration", but no registration form asks for it.
+- **Written by:** nothing reachable. The only code that sets it is the pod leaders' member edit ([`app/api/pods/[pod_id]/members/[participant_id]/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pods/%5Bpod_id%5D/members/%5Bparticipant_id%5D/route.ts)), and nothing in the app calls that route. The PRD says it's "captured at registration", but no registration form asks for it.
 - **Read by:** the pod leader roster (searchable) and the pulse review panel.
+- **Where values come from:** no code in the repo, including the seed data and scripts, writes it. Any values you see on those screens were entered another way: directly in Supabase, or by code outside this repo, such as the onboarding admin edge function.
 - **Confidence:** Confirmed.
 
 ### Fields added for a redesign but never asked
@@ -572,7 +584,7 @@ The same migration left a one-time step commented out: copying old opt-ins into 
 - **Type:** `timestamptz`.
 - **Meaning:** when an owner archived (deactivated) the person. Empty means active ([`00079`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/supabase/migrations/00079_participant_lifecycle.sql)).
 - **What archiving does:** it also revokes their roles, enrollments and memberships ([`lib/owner/archive.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/lib/owner/archive.ts)).
-- **Undoing it:** clear the field. Lifting a ban also clears it.
+- **Undoing it:** clear the field. Lifting a ban also clears it, and so does the owner reset (`reset_participant()`).
 - **Not a ban:** archived people can still sign in, with no roles. Bans live in `participant_bans`.
 - **Confidence:** Confirmed.
 
@@ -586,8 +598,9 @@ The same migration left a one-time step commented out: copying old opt-ins into 
 #### `last_pulse_completed_at`
 - **Type:** `timestamp`.
 - **Meaning:** when the person last completed a weekly pulse check ([`00010`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/supabase/migrations/00010_pulse_check_v2.sql), "7-day enforcement tracking").
-- **Written by:** the pulse check submission.
-- **Read by:** the enforcement check, which counts 7 days from this value (or from `created_at`) and flags warnings at 3 days and 1 day before the deadline, then overdue ([`app/api/pulse-checks/enforcement/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pulse-checks/enforcement/route.ts)).
+- **Written by:** the pulse check submission. Migration `00010` also filled it in once for existing rows, from their latest completed pulse check.
+- **Read by:** the pulse check page ([`app/(dashboard)/pulse-check/page.tsx`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/%28dashboard%29/pulse-check/page.tsx)). It counts 7 days from this value (or from `created_at`) to show a deadline status.
+- **No longer enforced:** the page never locks anyone out. Its code says the Learning Log gate on the dashboard replaced pulse enforcement. A separate enforcement API route ([`app/api/pulse-checks/enforcement/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pulse-checks/enforcement/route.ts)) computes the same status, but nothing in the app calls it.
 - **Confidence:** Confirmed.
 
 #### `page_follows_seeded`
@@ -654,7 +667,22 @@ The original spec called these "Platform accounts (populated post-onboarding)". 
    - `created_via`
    - `public_profile_visible`
    - `lab_follow_seeded`
+   - `availability_snippet` (only an API route nothing calls writes it)
 5. **`google_id` doesn't hold Google account IDs.** It holds an email address.
+6. **Two routes that write this table can't be reached.** See the next section.
+
+## Routes that write participants but that nothing calls
+
+Two API routes write to `participants`, but nothing in the app calls them, so their writes don't happen in practice:
+
+| Route | What it would write |
+|---|---|
+| [`app/api/pods/[pod_id]/members/[participant_id]/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/pods/%5Bpod_id%5D/members/%5Bparticipant_id%5D/route.ts) | The pod leaders' member edit: `preferred_name`, `phone_number`, `availability_snippet` |
+| [`app/api/cycles/[cycle_id]/interest/route.ts`](https://github.com/wash-TheUpskillingLabs/c04-olos/blob/ca543cc/app/api/cycles/%5Bcycle_id%5D/interest/route.ts) | An older cycle-interest form: `state`, `work_situation`, `main_focus`, `sector`, `linkedin`, plus options in `participant_options`. Its rules accept any text for `state`, but the database only allows `MD`, `DC`, `VA` or `Other`, so other values would be rejected. |
+
+This is only about *changing* these fields. The pod leaders' screens still read and show `preferred_name` and `availability_snippet`, and their roster download includes `phone_number`.
+
+The routes might be called by a tool outside this repo, but nothing in the repo does.
 
 ## Questions for the OLOS developers
 
@@ -669,6 +697,8 @@ These are only for what the code can't answer:
 7. **`photo_video_consent`:** new sign-ups get `true` without being asked. Is consent now collected per event, and where?
 8. **`created_via`:** should the sign-up form set `onboarding_app`? Rows from after `00056` show `unknown`.
 9. **`metro_slug`:** should the profile editor update `metro_id` as well, or should `metro_slug` be retired?
+10. **The two unreachable routes:** is the pod leaders' member edit meant to get a screen, and is the cycle-interest route retired?
+11. **The onboarding admin edge function:** where does its code live, and which `participants` columns does it write? It's the most likely source of values that no code in this repo writes.
 
 ## Query to check real data
 

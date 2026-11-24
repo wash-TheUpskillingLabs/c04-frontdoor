@@ -118,7 +118,7 @@ textarea { width: 100%; font-family: var(--font-mono); font-size: 13px; line-hei
   <div class="how">
     <ol>
       <li>Select <strong>Download note (.md)</strong>. You get <code>participants-scoping.md</code>.</li>
-      <li>On GitHub, open <code>research/participant-scoping/</code>, choose <strong>Add file → Upload files</strong>, and drop the downloaded file in to replace the old one.</li>
+      <li>On GitHub, open <code>research/participant-scope/</code>, choose <strong>Add file → Upload files</strong>, and drop the downloaded file in to replace the old one.</li>
       <li>Describe the change in the commit message and commit it, or open a pull request if you want review first.</li>
     </ol>
     <p>If someone else committed a change since you opened this page, select <strong>Open a note…</strong> and load the latest file before editing, so you don't overwrite their work.</p>
@@ -282,7 +282,7 @@ function buildNote() {
   const out = [
     "# participants column scoping", "",
     "Where each column of the OLOS `participants` table should live: in the national schema, in the regional (Greater Washington) copy, in both, or moved to a new table.", "",
-    "This file is the record. To change it, open the [scoping page](./) (on the site: `/research/participant-scoping/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.", "",
+    "This file is the record. To change it, open the [scoping page](./) (on the site: `/research/participant-scope/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.", "",
     "Decisions: National · Regional · Both · New table · Unsure. A blank Decision means not decided yet.", "",
     `Last updated: ${today()}`, "",
     "## Decisions", "",
@@ -315,7 +315,7 @@ function download(filename, text, type) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-$("dlMd").addEventListener("click", () => { download(NOTE_FILE, buildNote(), "text/markdown;charset=utf-8"); setDirty(false); setStatus(`Downloaded ${NOTE_FILE}. Commit it to research/participant-scoping/ to save it.`); });
+$("dlMd").addEventListener("click", () => { download(NOTE_FILE, buildNote(), "text/markdown;charset=utf-8"); setDirty(false); setStatus(`Downloaded ${NOTE_FILE}. Commit it to research/participant-scope/ to save it.`); });
 $("dlCsv").addEventListener("click", () => { download("participants-scoping.csv", buildCsv(), "text/csv;charset=utf-8"); setStatus("Downloaded participants-scoping.csv."); });
 $("copyBtn").addEventListener("click", () => {
   const md = buildNote(); const ta = $("outText"); $("out").hidden = false; ta.value = md;

@@ -1,0 +1,25 @@
+event_id,event_name,type,cycle,date_estimate,participants,date_basis,possibly_same_as,note,merge_into,include
+EC01,Energy & Climate hackathon,hackathon,Energy & Climate,2026-05-23,2,referred to as past on 05-29; cycle start,,Start-of-cycle hackathon; exact date not stated,,yes
+EC02,Customer discovery session (Randall),session,Energy & Climate,2026-05-26,1,mentioned 05-29,,,,yes
+EC03,Brainstorming / Upskilling Lab session (Rachel Wooden),workshop,Energy & Climate,2026-05-30,2,mentioned 05-31 and 06-01,,Two mentions; may be one or two sessions,,yes
+EC04,Project kickoff,kickoff,Energy & Climate,2026-06-06,3,mentioned 06-07 to 06-19,,Could be per-project kickoffs rather than one event,,yes
+EC05,Meet the Projects presentations,presentation,Energy & Climate,2026-06-09,6,'presentation on Tuesday' written 06-14,,Three project presentations,,yes
+EC06,AI tools learning session,session,Energy & Climate,2026-06-11,1,'Thursday evening' written 06-14,,,,yes
+EC07,GitLab workshop,workshop,Energy & Climate,2026-06-18,1,mentioned 06-21,,,,yes
+EC08,App development boot camp (Viktor),workshop,Energy & Climate,2026-06-25,1,mentioned 06-29,,May be a single pod's internal session,,yes
+EC09,Final presentations,presentation,Energy & Climate,2026-07-14,3,'July 14th presentation' written 06-30,CE01,Same date as the Civics kickoff,,yes
+CE01,Civics & Elections kickoff,kickoff,Civics & Elections,2026-07-14,1,'kickoff was July 14' (feedback 07-23),EC09,,,yes
+CE02,"Design Thinking / problem framing workshop, MLK Library (Rachel Wooden)",workshop,Civics & Elections,2026-07-28,3,'Tuesday's workshop' written 07-30,,,,yes
+CE03,Design webinar (Claude Skills),webinar,Civics & Elections,2026-07-30,1,'this week' written 08-03,,,,yes
+CE04,Sensemaking workshop,workshop,Civics & Elections,2026-08-04,1,written 08-05,,,,yes
+CE05,Prompt to Prototype: professional website with Lovable (AJ Bubb),workshop,Civics & Elections,2026-08-04,1,written 08-05,,,,yes
+CE06,Civics hackathon,hackathon,Civics & Elections,2026-08-11,7,first mentions 08-09 to 08-19,,,,yes
+CE07,Build Out Loud workshop,workshop,Civics & Elections,2026-08-11,1,written 08-14,,,,yes
+CE08,Meet the Pods,presentation,Civics & Elections,2026-08-11,3,'Meet The Pods on Tuesday' written 08-15,,,,yes
+CE09,GitHub session at the public library,session,Civics & Elections,2026-08-18,2,'Tuesday at the public library' written 08-15,CE10,,,yes
+CE10,Intro to AI Coding session,session,Civics & Elections,2026-08-20,1,written 08-26,CE09,Possibly the same session as CE09,,yes
+CE11,Data Viz lightning session,session,Civics & Elections,2026-08-25,1,written 08-27,,Text is truncated in the export,,yes
+CE12,Pitch presentations and project vote,presentation,Civics & Elections,2026-08-25,2,written 08-26 to 08-29,,,,yes
+CE13,Meet the Projects,presentation,Civics & Elections,2026-09-08,2,'Monday's meeting' written 09-07; drafted 09-09,,,,yes
+CE14,Storytelling talk at an Upskilling event,presentation,Civics & Elections,2026-09-08,1,'last week' written 09-14,,,,yes
+CE15,DC Startup & Tech Week panels,external,Civics & Elections,2026-10-24,1,written 10-25,,"External event, not run by the Labs; participant highlighted other Upskillers there",,yes

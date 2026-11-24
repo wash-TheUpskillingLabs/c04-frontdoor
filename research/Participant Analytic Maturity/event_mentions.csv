@@ -1,0 +1,62 @@
+event_id,participant,relation,written_on,source,record_id,question_key,evidence,include
+EC01,Person_00095,missed,2026-05-29,pulse_check,7,challenge,Feel behind my peers due to not being around since the hackathon - but Ill get my groove back :),yes
+EC01,Person_00096,mentioned,2026-05-29,pulse_check,9,challenge,…sure if this pod is going to survive. It seems like only me and Fabian are in it. None of the people from the hackathon joined slack.,yes
+EC02,Person_00096,attended,2026-05-29,pulse_check,9,tailwinds,"I found Randall's customer discovery session useful, even though it was rushed.",yes
+EC03,Person_00100,attended,2026-05-31,pulse_check,15,accomplishment,Attended one of the Upskilling Lab sessions from Rachel Woodard,yes
+EC03,Person_00036,mentioned,2026-06-01,pulse_check,18,highlight,Rachael's brainstorming workshop,yes
+EC05,Person_00060,mentioned,2026-06-06,pulse_check,32,accomplishment,…project pitch. I met with the Clean Energy Pod team three times to hash out project proposals and prepare for Meet the Projects.,yes
+EC04,Person_00031,attended,2026-06-07,pulse_check,36,highlight,choosing a project and attending project kick off,yes
+EC05,Person_00058,led_or_presented,2026-06-10,pulse_check,40,accomplishment,Led the presentation of the Empties MVP vision pitch,yes
+EC05,Person_00093,mentioned,2026-06-12,pulse_check,47,accomplishment,The presentation fot mert the projects session,yes
+EC05,Person_00096,mentioned,2026-06-13,pulse_check,53,challenge,"Not really clear on next steps. Super busy week. Beyond the meet the projects presentation, I have had no time to work on the project this week. This Saturday is the day to catch up.",yes
+EC05,Person_00096,attended,2026-06-13,pulse_check,53,accomplishment,Attended meet the projects. Potentially adding a new member with coding skills to our group.,yes
+EC05,Person_00102,attended,2026-06-13,pulse_check,52,highlight,Seeing the success of all 3 Meet the Projects presentations,yes
+EC05,Person_00096,attended,2026-06-13,pulse_check,53,highlight,"Going to the meet the projects presentation,",yes
+EC05,Person_00060,led_or_presented,2026-06-13,pulse_check,51,accomplishment,I contributed a figure to the team presentation at Meet the Projects. We held a kick-off meeting to mark the start of the project.,yes
+EC04,Person_00060,led_or_presented,2026-06-13,pulse_check,51,accomplishment,I contributed a figure to the team presentation at Meet the Projects. We held a kick-off meeting to mark the start of the project.,yes
+EC05,Person_00060,mentioned,2026-06-13,pulse_check,51,highlight,Meet the Projects - it was nice to see concrete projects coming together.,yes
+EC05,Person_00100,led_or_presented,2026-06-14,pulse_check,55,accomplishment,Meet the Projects presentation for the Clean Clarified project.  Attended the AI tools learning session on Thursday evening (ve…,yes
+EC05,Person_00100,mentioned,2026-06-14,pulse_check,55,highlight,Positive feedback received from the Clean Clarified presentation on Tuesday,yes
+EC06,Person_00100,attended,2026-06-14,pulse_check,55,accomplishment,Meet the Projects presentation for the Clean Clarified project.  Attended the AI tools learning session on Thursday evening (very informative) Held a follow up Q/A session for Corey Ramsden on Friday morning as fo…,yes
+EC04,Person_00104,attended,2026-06-19,pulse_check,63,accomplishment,A kick off call,yes
+EC07,Person_00095,attended,2026-06-21,pulse_check,71,accomplishment,Attended the gitlabs workshop and learned about how to use the tool,yes
+EC09,Person_00060,planned,2026-06-29,pulse_check,91,challenge,Balancing exploring new ideas for the prototype and working towards the final MVP + presentation.,yes
+EC09,Person_00109,planned,2026-06-29,pulse_check,90,accomplishment,…ay around with the different interfaces and report back about the experience.  Team will shift to starting to outline presentation slides.,yes
+EC08,Person_00109,attended,2026-06-29,pulse_check,90,accomplishment,"Good internal meetings with team.  Viktor held a very helpful app development ""boot camp"" and team members have been able to play around with the different interfaces and report back about the exper…",yes
+EC09,Person_00095,planned,2026-06-30,pulse_check,96,highlight,working with the team to move the project forward. seeing that we appear to be tracking well for a July 14th presentation,yes
+CE01,Person_00014,missed,2026-07-23,feedback,3,description,"I was able to join the civics program today July 22, when the kickoff was July 14. no where on the site was it explained if this is or isn't possible, and I was able to go through…",yes
+CE01,Person_00014,missed,2026-07-23,field_survey,43,prior_attempts,"…is sprint/thing today, Wed Jul 22, and I'm unsure if I'm actually able to proceed or am in because I see that kickoff was last week, July 14th. I would have thought the system would stop me or show me information if I couldn't…",yes
+CE02,Person_00012,mentioned,2026-07-30,baseline,14,role_change_outlook,After joining the design thinking session it gave me the vocabulary and framework of human centered design. I want to approach work with thoughtfulness…,yes
+CE02,Person_00001,attended,2026-07-30,learning_log,17,learned,The design thinking workshop was helpful in disecting problems and looking at solutions.,yes
+CE02,Person_00013,attended,2026-08-01,learning_log,18,accomplished,How to navigate this dashboard a little better and the steps for enrolling in a pod. I also attended the human-centric design session and found the way of framing how to ask questions very valuable.,yes
+CE02,Person_00001,attended,2026-08-01,learning_log,19,contribution,I attended a design thinking workshop and selected my pod,yes
+CE02,Person_00012,attended,2026-08-02,learning_log,21,contribution,This week I attended the design thinking/problem framing session by Rachel Wooden.,yes
+CE03,Person_00008,attended,2026-08-03,learning_log,23,contribution,"I attended the design-focused webinar this week, which taught me about Claude Skills. I have been reading through the Skill and exploring others, a…",yes
+CE05,Person_00019,mentioned,2026-08-05,learning_log,30,accomplished,I attended the: Sensemaking Workshop Prompt to Prototype: Building your Professional Website with AJ Bubb and Lovable.dev Elections Pod Update Ask Better Questions: A…,yes
+CE04,Person_00019,mentioned,2026-08-05,learning_log,30,accomplished,I attended the: Sensemaking Workshop Prompt to Prototype: Building your Professional Website with AJ Bubb and Lovable.dev Elections Pod Update Ask…,yes
+CE06,Person_00023,mentioned,2026-08-09,learning_log,37,exploring,"The ""What to Expect: From Pod to Hackathon"" document so I can get up to speed.",yes
+CE08,Person_00023,planned,2026-08-09,learning_log,37,next_focus,"Attending the ""Meet the Pods"" event on Tuesday and contributing to GitHub.",yes
+CE08,Person_00013,planned,2026-08-10,learning_log,41,blocker_context,I think seeing what people present at meet the pods will be helpful in seeing all the the different pathways that we can take this broad question.,yes
+CE06,Person_00025,attended,2026-08-12,learning_log,47,next_focus,Implementing any lessons learned (both technical and soft skills) learned from the Hackathon.,yes
+CE07,Person_00011,attended,2026-08-14,learning_log,48,learned,I attended the Build Out Loud workshop.,yes
+CE08,Person_00008,led_or_presented,2026-08-15,learning_log,59,contribution,"I created a presentation for Meet The Pods on Tuesday, and I created a prototype skill & web mockup to help a user write public comments",yes
+CE09,Person_00023,planned,2026-08-15,learning_log,63,blocker_context,'ll be joining the session on Tuesday at the public library to better understand GitHub and continue my first repo.,yes
+CE06,Person_00029,mentioned,2026-08-15,learning_log,61,exploring,"…etings, and “more civic engagement” as a goal in itself. A smaller closed loop on one agenda item is a better hackathon test than a bigger open mic.  I'm currently exploring a first build of a POC to see it would help increase pa…",yes
+CE06,Person_00023,attended,2026-08-15,learning_log,63,contribution,"I attended the Hackathon as a newcomer, learning about design thinking, planning, as well as tech tools like Loveable.",yes
+CE06,Person_00014,mentioned,2026-08-18,learning_log,65,contribution,"hackathon, frame hypothesis.",yes
+CE09,Person_00004,attended,2026-08-19,learning_log,67,contribution,…tch and track community comments and engagement to build trust and accountability. Also attended two learning sessions to build skills with GitHub and Loveable content development.,yes
+CE06,Person_00004,attended,2026-08-19,learning_log,67,contribution,"Collaborated at Hackathon on problem statement related to ""Closing the Loop"" to better catch and track community comments and engagemen…",yes
+CE06,Person_00016,attended,2026-08-22,learning_log,68,learned,"This week, I focused on putting what I learned during the hackathon into practice. I continued developing my project concept in Lovable.",yes
+CE06,Person_00019,attended,2026-08-23,learning_log,70,contribution,Refined the game prototype that I started at the hackathon. Created the pitch presentation.,yes
+CE12,Person_00007,attended,2026-08-26,learning_log,77,accomplished,Enjoyed hearing everyone’s pitch presentations (although perhaps they could’ve been time-bound),yes
+CE10,Person_00004,attended,2026-08-26,learning_log,75,accomplished,Went to Intro to AI Coding session and got Git installed and was able to use Claude AI code features.,yes
+CE11,Person_00023,attended,2026-08-27,learning_log,78,accomplished,"Last week I attended the GitHub session, but I still need more practice in how to use it. I also attended Data Viz Lightning talks to get some ideas on other projects (well worth it!)",yes
+CE09,Person_00023,attended,2026-08-27,learning_log,78,accomplished,"Last week I attended the GitHub session, but I still need more practice in how to use it. I also attended Data Viz Lightning talks to get some ideas…",yes
+CE12,Person_00001,led_or_presented,2026-08-28,learning_log,79,blocker_context,This week we all presented our projects and opened the vote for joining projects.  I voted for my own project but have not heard or seen updates as to whether or not oth…,yes
+CE12,Person_00007,attended,2026-08-29,learning_log,84,accomplished,"I enjoyed hearing everyone’s pitch presentations. I like the lightning talk format, these could’ve been similarly time bound.",yes
+CE13,Person_00001,mentioned,2026-09-07,learning_log,93,contribution,This week our team reviewed our loveable app as is and submitted feedback.  We also met before Monday's meeting to decide who we will present our project. I created the slide for our presentation that shows our team members.  We are st…,yes
+CE13,Person_00013,led_or_presented,2026-09-09,learning_log,94,contribution,Drafted the presentation for Meet the Projects,yes
+CE14,Person_00030,attended,2026-09-14,learning_log,96,learned,Presentation at UpSkilling event last week on storytelling reminded me we always need to be telling stories because it helps people better con…,yes
+CE06,Person_00016,attended,2026-09-18,learning_log,100,stuck_tried,"I started building our project in Lovable after learning it during the hackathon. Although I initially needed help, I was able to go back, practice, and eventually build the project independ…",yes
+CE06,Person_00016,attended,2026-09-27,learning_log,104,contribution,"I built my project in Lovable after the hackathon and knew it well, but my group was more comfortable with Claude. I moved it to ChatGPT, then fully to Claude,…",yes
+CE15,Person_00004,attended,2026-10-25,learning_log,119,contribution,"…via DC Start Up & Tech Week. Highlighted other Upskillers, networked with new people and learned from several panel presentations.",yes

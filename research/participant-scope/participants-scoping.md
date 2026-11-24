@@ -2,7 +2,7 @@
 
 Where each column of the OLOS `participants` table should live: in the national schema, in the regional (Greater Washington) copy, in both, or moved to a new table.
 
-This file is the record. To change it, open the [scoping page](./) (on the site: `/research/participant-scoping/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.
+This file is the record. To change it, open the [scoping page](./) (on the site: `/research/participant-scope/`), make your changes, select **Download note**, and commit the downloaded file over this one. You can also edit the table below by hand on GitHub.
 
 Decisions: National · Regional · Both · New table · Unsure. A blank Decision means not decided yet.
 
